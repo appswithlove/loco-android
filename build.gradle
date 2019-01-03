@@ -4,9 +4,11 @@ buildscript {
             url "https://plugins.gradle.org/m2/"
         }
         mavenCentral()
+        jcenter()
     }
     dependencies {
-        classpath 'com.gradle.publish:plugin-publish-plugin:0.9.2'
+        //classpath 'com.gradle.publish:plugin-publish-plugin:0.9.2'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
     }
 }
 
@@ -25,9 +27,14 @@ apply plugin: 'idea'
 apply plugin: 'java'
 apply plugin: 'groovy'
 apply plugin: 'signing'
-apply plugin: 'com.gradle.plugin-publish'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+apply plugin: 'java-gradle-plugin'
 apply from: "${rootDir}/gradle/meta.gradle"
-apply from: "${rootDir}/gradle/release.gradle"
+apply plugin: 'com.jfrog.bintray'
+
+group meta.group
+version meta.versionName
 
 task createClasspathManifest {
     def outputDir = file("$buildDir/$name")
@@ -69,3 +76,59 @@ idea {
         ]
     }
 }
+
+bintray {
+    user = "appswithlove"
+    key = "940ca946e3db4cd2dd0a0bbf82e7eacc9ce6ced7"
+    publications = ["jar"]
+    pkg {
+        repo = meta.pomArtifactId
+        name = "${meta.pomArtifactId}-plugin"
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/appswithlove/loco-android'
+        desc = 'This is a gradle plugin for easy synchronizing Loco text strings with Android projects'
+        version {
+            name = meta.versionName
+            desc = 'Loco Plugin for Android'
+            released = new Date()
+            vcsTag = meta.versionName
+        }
+    }
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar, javadocJar
+}
+
+publishing {
+    publications {
+        jar(MavenPublication) {
+            groupId meta.group
+            version = meta.versionName
+            artifactId meta.pomArtifactId
+            artifact("$buildDir/libs/${meta.pomArtifactId}-android-${meta.versionName}.jar")
+
+            artifact sourcesJar
+            artifact javadocJar
+
+            /*pom.withXml {
+                def root = asNode()
+                root.appendNode('description', 'Your description of the lib')
+                root.appendNode('name', 'Your name of the lib')
+                root.appendNode('url', 'https://site_for_lib.tld')
+                root.children().last() + pomConfig
+            }*/
+        }
+    }
+}
+

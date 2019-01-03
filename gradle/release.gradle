@@ -1,3 +1,4 @@
+/*
 apply from: "${rootDir}/gradle/meta.gradle"
 
 group = meta.group
@@ -140,3 +141,4 @@ pluginBundle {
         artifactId = meta.pomArtifactId
     }
 }
+*/

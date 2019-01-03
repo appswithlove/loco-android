@@ -1,4 +1,4 @@
-# loco-android
+# loco-android 
 
 This is a gradle plugin for easy update of text strings managed on Loco (localize.biz).
 
@@ -6,7 +6,7 @@ This is a gradle plugin for easy update of text strings managed on Loco (localiz
 
 In oder to use the plugin follow those steps:
  
-1.Add the following code to you `build.gradle` file in the `app` folder.
+1.Add the following code to you `build.gradle` file in the `root` folder.
 
 ```groovy
 buildscript {
@@ -22,13 +22,13 @@ buildscript {
 }
 ```
 
-2.Apply the plugin in `build.gradle` in `app` folder.
+2.Apply the plugin in `app/build.gradle`.
 
 ```groovy
 apply plugin: 'com.appswithlove.loco'
 ```
 
-3. Configure the Loco instance:
+3. Configure the Loco instance in `app/build.gradle`:
 
 ```groovy
 Loco {
@@ -54,7 +54,7 @@ Otherwise, you can call the gradle tasks via command:
 
 ---
 
-**Keep in mind!**
+**⚠️ Keep in mind!**
 
 This will override all existing `values.xml` files of the given `languages`. Any type of app specific text strings should be placed into a separate string file, such as `constants.xml`.
 

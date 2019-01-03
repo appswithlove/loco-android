@@ -30,6 +30,13 @@ class LocoTask extends DefaultTask {
                 }
             }
         }
-        //}
+        ok()
+    }
+
+    private static void ok() {
+        println()
+        println("--------------------------------------")
+        println("Loco text strings updated successfully!")
+        println("--------------------------------------")
     }
 }
