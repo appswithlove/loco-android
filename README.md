@@ -1,4 +1,5 @@
 # loco-android 
+🇯🇵 🇰🇷 🇩🇪 🇨🇳 🇺🇸 🇫🇷 🇪🇸 🇮🇹 🇷🇺 🇬🇧
 
 This is a gradle plugin for easy update of text strings managed on Loco (localize.biz).
 
@@ -56,16 +57,13 @@ Otherwise, you can call the gradle tasks via command:
 
 **⚠️ Keep in mind!**
 
-This will override all existing `values.xml` files of the given `languages`. Any type of app specific text strings should be placed into a separate string file, such as `constants.xml`.
+Executing `updateLoco will override all existing `values.xml` files of the given `languages`. Any type of app specific text strings should be placed into a separate string file, such as `constants.xml`.
 
 ---
 
-
 # Parameters
 
-The plugin allows to have parameters in text strings. Every parameter in the form `$ANYTEXT$`, `$Any Text$` (start and end with `$`) will be translated to `%s` when updating Loco.
-
-
+The plugin allows to have parameters in text strings. Every parameter in the form `$ANYTEXT$`, `$Any Text$` (start and end with `$`) will be translated to `%s` when updating the Loco strings.
 
 
 ## Debug
