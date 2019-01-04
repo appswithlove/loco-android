@@ -44,7 +44,7 @@ Loco {
 4.Done! 
 
 ## Usage
-After installing the plugin, you should be able to find the Gradle Updraft tasks in Android Studio. The naming is always `updraft` + buildVariant. There is 1 task for every available buildVariant. 
+After installing the plugin, you should be able to find the Gradle Loco tasks in Android Studio.
 ``` 
 "Gradle Project" Window -> Tasks -> Other -> updateLoco
 ```
