@@ -1,4 +1,6 @@
 # loco-android 
+[ ![Download](https://api.bintray.com/packages/appswithlove/loco/loco-plugin/images/download.svg) ](https://bintray.com/appswithlove/loco/loco-plugin/_latestVersion)
+
 🇯🇵 🇰🇷 🇩🇪 🇨🇳 🇺🇸 🇫🇷 🇪🇸 🇮🇹 🇷🇺 🇬🇧
 
 This is a gradle plugin for easy update of text strings managed on Loco (localize.biz).
