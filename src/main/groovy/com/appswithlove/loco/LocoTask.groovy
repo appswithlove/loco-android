@@ -23,7 +23,7 @@ class LocoTask extends DefaultTask {
             connection.with {
                 doOutput = true
                 requestMethod = 'GET'
-                new File("${project.Loco.resDir}/values-$lang/strings.xml").text = content.text.replaceAll(/\$.*\$/, "%s")
+                new File("${project.Loco.resDir}/values-$lang/strings.xml").text = content.text.replaceAll(/\$[^$]*\$/, "%s")
 
                 if (lang == project.Loco.defLang) {
                     new File("${project.Loco.resDir}/values/strings.xml").text = new File("${project.Loco.resDir}/values-$lang/strings.xml").text
