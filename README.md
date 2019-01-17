@@ -49,11 +49,11 @@ Loco {
 
 ## Usage
 After installing the plugin, you should be able to find the Gradle Loco tasks in Android Studio.
-``` 
+```console 
 "Gradle Project" Window -> Tasks -> Other -> updateLoco
 ```
 Otherwise, you can call the gradle tasks via command: 
-```
+```console
 ./gradlew updateLoco
 ```
 
