@@ -1,7 +1,6 @@
 # loco-android 
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/c09a5a2d2d6444b38b092bdaa94aa964)](https://app.codacy.com/app/yannickpulver/loco-android?utm_source=github.com&utm_medium=referral&utm_content=appswithlove/loco-android&utm_campaign=Badge_Grade_Dashboard)
-
 [ ![Download](https://api.bintray.com/packages/appswithlove/loco/loco-plugin/images/download.svg) ](https://bintray.com/appswithlove/loco/loco-plugin/_latestVersion)
 
 🇯🇵 🇰🇷 🇩🇪 🇨🇳 🇺🇸 🇫🇷 🇪🇸 🇮🇹 🇷🇺 🇬🇧
