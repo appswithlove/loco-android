@@ -1,4 +1,8 @@
 # loco-android 
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/c09a5a2d2d6444b38b092bdaa94aa964)](https://app.codacy.com/app/yannickpulver/loco-android?utm_source=github.com&utm_medium=referral&utm_content=appswithlove/loco-android&utm_campaign=Badge_Grade_Dashboard)
+[![Download](https://api.bintray.com/packages/appswithlove/loco/loco-plugin/images/download.svg)](https://bintray.com/appswithlove/loco/loco-plugin/_latestVersion)
+
 🇯🇵 🇰🇷 🇩🇪 🇨🇳 🇺🇸 🇫🇷 🇪🇸 🇮🇹 🇷🇺 🇬🇧
 
 This is a gradle plugin for easy update of text strings managed on Loco (localize.biz).
@@ -18,7 +22,7 @@ buildscript {
 
   dependencies {
     //…
-    classpath 'com.appswithlove.loco:loco:0.0.1'
+    classpath 'com.appswithlove.loco:loco:0.0.3'
   }
 }
 ```
@@ -29,7 +33,7 @@ buildscript {
 apply plugin: 'com.appswithlove.loco'
 ```
 
-3. Configure the Loco instance in `app/build.gradle`:
+3.Configure the Loco instance in `app/build.gradle`:
 
 ```groovy
 Loco {
@@ -44,49 +48,47 @@ Loco {
 4.Done! 
 
 ## Usage
-After installing the plugin, you should be able to find the Gradle Updraft tasks in Android Studio. The naming is always `updraft` + buildVariant. There is 1 task for every available buildVariant. 
-``` 
+After installing the plugin, you should be able to find the Gradle Loco tasks in Android Studio.
+```console 
 "Gradle Project" Window -> Tasks -> Other -> updateLoco
 ```
 Otherwise, you can call the gradle tasks via command: 
-```
+```console
 ./gradlew updateLoco
 ```
 
 ---
 
-**⚠️ Keep in mind!**
+## ⚠️ Keep in mind
 
 Executing `updateLoco will override all existing `values.xml` files of the given `languages`. Any type of app specific text strings should be placed into a separate string file, such as `constants.xml`.
 
 ---
 
-# Parameters
+## Parameters
 
 The plugin allows to have parameters in text strings. Every parameter in the form `$ANYTEXT$`, `$Any Text$` (start and end with `$`) will be translated to `%s` when updating the Loco strings.
-
 
 ## Debug
 
 In order to debug the plugin, `clean` -> `jar` -> `publishJarPublicationToMavenLocal` and connect your android App to the mavenLocal-version of the android plugin by adding the following snipped to your root-folder `build.gradle`
 
-```
+```groovy
 buildscript {
 	repositories {
 		mavenLocal()
 		...
 	}
 	dependencies{
-	    classpath 'com.appswithlove.loco:loco:0.0.1'
+	    classpath 'com.appswithlove.loco:loco:0.0.3'
 	    ...
 	} 
 }
-
 ```
 
 After that, call the following script in the terminal of your android app (replace `FLAVOUR`)
 
-```
+```console
 ./gradlew updateLoco -Dorg.gradle.debug=true --no-daemon
 ```
 
