@@ -23,13 +23,16 @@ class LocoTask extends DefaultTask {
             connection.with {
                 doOutput = true
                 requestMethod = 'GET'
-               
+
                 def file = new File("${project.Loco.resDir}/values-$lang/strings.xml")
-                file.write(content.text.replaceAll(/\$[^$]*\$/, "%s"), 'utf-8')
+                def text = content.text
+                text = new String(text.getBytes("UTF-8"), "UTF-8")
+                text = text.replaceAll(/\$[^$]*\$/, "%s")
+                file.write(text)
 
                 if (lang == project.Loco.defLang) {
                     def internalFile = new File("${project.Loco.resDir}/values/strings.xml")
-                    internalFile.write(file.text, 'utf-8')
+                    internalFile.write(text)
                 }
             }
         }
