@@ -7,4 +7,5 @@ class LocoExtension {
     def lang = ['en']
     def defLang = 'en'
     def resDir
+    def placeholderPattern = null
 }

@@ -27,7 +27,11 @@ class LocoTask extends DefaultTask {
                 def file = new File("${project.Loco.resDir}/values-$lang/strings.xml")
                 def text = content.text
                 text = new String(text.getBytes("UTF-8"), "UTF-8")
-                text = text.replaceAll(/\$[^$]*\$/, "%s")
+
+                if (project.Loco.placeholderPattern != null) {
+                    text = text.replaceAll(project.Loco.placeholderPattern, "%s")
+                }
+                
                 file.write(text)
 
                 if (lang == project.Loco.defLang) {
