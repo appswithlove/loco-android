@@ -41,6 +41,7 @@ Loco {
     lang = ['de', 'fr'] //add as many languages as you want, they need to exist on Localize.biz
     defLang = 'de' //one language that will result as the default language and be put in values/strings.xml
     resDir = "$projectDir/src/main/res"
+    placeholderPattern = null // optional regex pattern with leading ~, default -> null
 }
 
 ```
