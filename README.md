@@ -67,7 +67,11 @@ Executing `updateLoco will override all existing `values.xml` files of the given
 
 ## Parameters
 
-The plugin allows to have parameters in text strings. Every parameter in the form `$ANYTEXT$`, `$Any Text$` (start and end with `$`) will be translated to `%s` when updating the Loco strings.
+The parameter `placeholderPattern` allows to have parameters replaced in text strings. The default value is `null`, therefore no parameter will be replaced. 
+
+Example for a pattern: 
+`placeholderPattern = /\$[^$]*\$/` will replace every parameter in the form `$ANYTEXT$`, `$Any Text$` (start and end with `$`)  with `%s` when updating the Loco strings.
+ 
 
 ## Debug
 
@@ -80,7 +84,7 @@ buildscript {
 		...
 	}
 	dependencies{
-	    classpath 'com.appswithlove.loco:loco:0.0.6'
+	    classpath 'com.appswithlove.loco:loco:0.1.0'
 	    ...
 	} 
 }
