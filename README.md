@@ -68,9 +68,10 @@ Executing `updateLoco will override all existing `values.xml` files of the given
 ## Parameters
 
 The parameter `placeholderPattern` allows to have parameters replaced in text strings. The default value is `null`, therefore no parameter will be replaced. 
+If you use a custom pattern, make sure to add a tilde `~` just in front of the pattern, so that it gets recognized as a pattern from gradle.
 
 Example for a pattern: 
-`placeholderPattern = /\$[^$]*\$/` will replace every parameter in the form `$ANYTEXT$`, `$Any Text$` (start and end with `$`)  with `%s` when updating the Loco strings.
+`placeholderPattern = ~/\$[^$]*\$/` will replace every parameter in the form `$ANYTEXT$`, `$Any Text$` (start and end with `$`)  with `%s` when updating the Loco strings.
  
 
 ## Debug
