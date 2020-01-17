@@ -8,4 +8,5 @@ class LocoExtension {
     def defLang = 'en'
     def resDir
     def placeholderPattern = null
+    def hideComments = false
 }
