@@ -1,6 +1,6 @@
 ext {
     meta = [:]
-    meta.versionName = '0.1.0'
+    meta.versionName = '0.1.1-' + System.currentTimeMillis()
     meta.group = 'com.appswithlove.loco'
     meta.pomArtifactId = 'loco'
     meta.javaCompatibility = 1.6

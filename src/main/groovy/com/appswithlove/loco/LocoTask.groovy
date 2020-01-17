@@ -16,8 +16,12 @@ class LocoTask extends DefaultTask {
 
     @TaskAction
     void doLast() {
+
+        //Determine wheter it should show comments or not
+        def parameter = "?no-comments=${project.Loco.hideComments}"
+
         for (String lang in project.Loco.lang) {
-            def baseUrl = new URL("${project.Loco.locoBaseUrl}/${lang}.xml")
+            def baseUrl = new URL("${project.Loco.locoBaseUrl}/${lang}.xml${parameter}")
             HttpURLConnection connection = (HttpURLConnection) baseUrl.openConnection()
             connection.addRequestProperty("Authorization", "Loco ${project.Loco.apiKey}")
             connection.with {

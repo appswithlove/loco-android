@@ -22,7 +22,7 @@ buildscript {
 
   dependencies {
     //…
-    classpath 'com.appswithlove.loco:loco:0.0.6'
+    classpath 'com.appswithlove.loco:loco:0.1.1'
   }
 }
 ```
@@ -42,6 +42,7 @@ Loco {
     defLang = 'de' //one language that will result as the default language and be put in values/strings.xml
     resDir = "$projectDir/src/main/res"
     placeholderPattern = null // optional regex pattern with leading ~, default -> null
+    hideComments = false // optionally hide comments & loco metadata 
 }
 
 ```
@@ -62,7 +63,7 @@ Otherwise, you can call the gradle tasks via command:
 
 ## ⚠️ Keep in mind
 
-Executing `updateLoco will override all existing `values.xml` files of the given `languages`. Any type of app specific text strings should be placed into a separate string file, such as `constants.xml`.
+Executing `updateLoco` will override all existing `values.xml` files of the given `languages`. Any type of app specific text strings should be placed into a separate string file, such as `constants.xml`.
 
 ---
 
@@ -86,7 +87,7 @@ buildscript {
 		...
 	}
 	dependencies{
-	    classpath 'com.appswithlove.loco:loco:0.1.0'
+	    classpath 'com.appswithlove.loco:loco:0.1.1'
 	    ...
 	} 
 }
