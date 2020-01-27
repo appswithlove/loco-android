@@ -5,7 +5,7 @@
 
 🇯🇵 🇰🇷 🇩🇪 🇨🇳 🇺🇸 🇫🇷 🇪🇸 🇮🇹 🇷🇺 🇬🇧
 
-This is a gradle plugin for easy update of text strings managed on Loco (localize.biz).
+This is a gradle plugin for easy update of text strings managed on Loco ([localise.biz](https://localise.biz)).
 
 ## Instructions
 
