@@ -5,7 +5,7 @@
 
 🇯🇵 🇰🇷 🇩🇪 🇨🇳 🇺🇸 🇫🇷 🇪🇸 🇮🇹 🇷🇺 🇬🇧
 
-This is a gradle plugin for easy update of text strings managed on Loco ([localise.biz](https://localise.biz)).
+This is a gradle plugin for easy update of text strings managed on Loco (localize.biz).
 
 ## Instructions
 
@@ -22,7 +22,7 @@ buildscript {
 
   dependencies {
     //…
-    classpath 'com.appswithlove.loco:loco:0.1.1'
+    classpath 'com.appswithlove.loco:loco:0.1.2'
   }
 }
 ```
@@ -43,6 +43,7 @@ Loco {
     resDir = "$projectDir/src/main/res"
     placeholderPattern = null // optional regex pattern with leading ~, default -> null
     hideComments = false // optionally hide comments & loco metadata 
+    tags = false // optionally filter assets by comma-separated tag names. Match any tag with `*` and negate tags by prefixing with `!`	 
 }
 
 ```
@@ -87,7 +88,7 @@ buildscript {
 		...
 	}
 	dependencies{
-	    classpath 'com.appswithlove.loco:loco:0.1.1'
+	    classpath 'com.appswithlove.loco:loco:0.1.2'
 	    ...
 	} 
 }
