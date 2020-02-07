@@ -9,4 +9,5 @@ class LocoExtension {
     def resDir
     def placeholderPattern = null
     def hideComments = false
+    def tags
 }

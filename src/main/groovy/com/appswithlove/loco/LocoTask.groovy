@@ -20,6 +20,11 @@ class LocoTask extends DefaultTask {
         //Determine wheter it should show comments or not
         def parameter = "?no-comments=${project.Loco.hideComments}"
 
+        // Add tags filter
+        if (project.Loco.tags != null) {
+            parameter = parameter + "&filter=${project.Loco.tags}"
+        }
+
         for (String lang in project.Loco.lang) {
             def baseUrl = new URL("${project.Loco.locoBaseUrl}/${lang}.xml${parameter}")
             HttpURLConnection connection = (HttpURLConnection) baseUrl.openConnection()
@@ -35,7 +40,7 @@ class LocoTask extends DefaultTask {
                 if (project.Loco.placeholderPattern != null) {
                     text = text.replaceAll(project.Loco.placeholderPattern, "%s")
                 }
-                
+
                 file.write(text)
 
                 if (lang == project.Loco.defLang) {
