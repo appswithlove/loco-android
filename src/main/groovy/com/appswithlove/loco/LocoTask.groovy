@@ -33,7 +33,6 @@ class LocoTask extends DefaultTask {
                 doOutput = true
                 requestMethod = 'GET'
 
-                def file = new File("${project.Loco.resDir}/values-$lang/strings.xml")
                 def text = content.text
                 text = new String(text.getBytes("UTF-8"), "UTF-8")
 
@@ -41,11 +40,12 @@ class LocoTask extends DefaultTask {
                     text = text.replaceAll(project.Loco.placeholderPattern, "%s")
                 }
 
-                file.write(text)
-
                 if (lang == project.Loco.defLang) {
                     def internalFile = new File("${project.Loco.resDir}/values/strings.xml")
                     internalFile.write(text)
+                } else {
+                    def file = new File("${project.Loco.resDir}/values-$lang/strings.xml")
+                    file.write(text)
                 }
             }
         }
