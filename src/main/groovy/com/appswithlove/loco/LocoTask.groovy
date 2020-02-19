@@ -40,13 +40,18 @@ class LocoTask extends DefaultTask {
                     text = text.replaceAll(project.Loco.placeholderPattern, "%s")
                 }
 
-                if (lang == project.Loco.defLang) {
-                    def internalFile = new File("${project.Loco.resDir}/values/strings.xml")
-                    internalFile.write(text)
-                } else {
-                    def file = new File("${project.Loco.resDir}/values-$lang/strings.xml")
-                    file.write(text)
+                def appendix = ""
+                if (lang != project.Loco.defLang) {
+                    appendix = "-$lang"
                 }
+
+                def directory = new File("${project.Loco.resDir}/values$appendix/")
+                if (!directory.exists()) {
+                    directory.mkdir()
+                }
+
+                def file = new File(directory.absolutePath + "/strings.xml")
+                file.write(text)
             }
         }
         ok()
