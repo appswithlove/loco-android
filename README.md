@@ -5,7 +5,7 @@
 
 🇯🇵 🇰🇷 🇩🇪 🇨🇳 🇺🇸 🇫🇷 🇪🇸 🇮🇹 🇷🇺 🇬🇧
 
-This is a gradle plugin for easy update of text strings managed on Loco (localize.biz).
+This is a gradle plugin for easy update of text strings managed on Loco (localise.biz).
 
 ## Instructions
 
@@ -38,7 +38,7 @@ apply plugin: 'com.appswithlove.loco'
 ```groovy
 Loco {
     apiKey = 'YOUR_API_KEY'
-    lang = ['de', 'fr'] //add as many languages as you want, they need to exist on Localize.biz
+    lang = ['de', 'fr'] //add as many languages as you want, they need to exist on Localise.biz
     defLang = 'de' //one language that will result as the default language and be put in values/strings.xml
     resDir = "$projectDir/src/main/res"
     placeholderPattern = null // optional regex pattern with leading ~, default -> null
