@@ -57,6 +57,7 @@ bintray {
     user = bintray.user
     key = bintray.key
     publications = ["jar"]
+    configurations = ['archives']
     pkg {
         repo = meta.pomArtifactId
         name = "${meta.pomArtifactId}-plugin"
@@ -69,6 +70,7 @@ bintray {
             released = new Date()
             vcsTag = meta.versionName
         }
+        publish = true
     }
 }
 
