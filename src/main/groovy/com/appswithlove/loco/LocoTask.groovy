@@ -47,6 +47,12 @@ class LocoTask extends DefaultTask {
 
                 def appendix = ""
                 if (lang != project.Loco.defLang) {
+                    // Certain languages have multiple regions (e.g., Spanish (Spain) and Spanish (Mexico)),
+                    // and their folder titles have an additional "r" in them.
+                    if (lang.contains("-")) {
+                        lang = lang.replace("-", "-r")
+                    }
+
                     appendix = "-$lang"
                 }
 
