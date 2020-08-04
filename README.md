@@ -22,7 +22,7 @@ buildscript {
 
   dependencies {
     //…
-    classpath 'com.appswithlove.loco:loco:0.1.4'
+    classpath 'com.appswithlove.loco:loco:0.1.5'
   }
 }
 ```
@@ -38,12 +38,13 @@ apply plugin: 'com.appswithlove.loco'
 ```groovy
 Loco {
     apiKey = 'YOUR_API_KEY'
-    lang = ['de', 'fr'] //add as many languages as you want, they need to exist on Localise.biz
-    defLang = 'de' //one language that will result as the default language and be put in values/strings.xml
+    lang = ['de', 'fr'] // add as many languages as you want, they need to exist on localise.biz
+    defLang = 'de' // one language that will result as the default language and be put in values/strings.xml
     resDir = "$projectDir/src/main/res"
-    placeholderPattern = null // optional regex pattern with leading ~, default -> null
+    placeholderPattern = null // optional, regex pattern with leading ~, default -> null
     hideComments = false // optionally hide comments & loco metadata 
-    tags = false // optionally filter assets by comma-separated tag names. Match any tag with `*` and negate tags by prefixing with `!`	 
+    tags = 'Android, !iOS' // optional, filter assets by comma-separated tag names. Match any tag with `*` and negate tags by prefixing with `!`	 
+    fallbackLang = 'en' // optional, fallback language when not present
 }
 
 ```
@@ -88,7 +89,7 @@ buildscript {
 		...
 	}
 	dependencies{
-	    classpath 'com.appswithlove.loco:loco:0.1.4'
+	    classpath 'com.appswithlove.loco:loco:0.1.5'
 	    ...
 	} 
 }
