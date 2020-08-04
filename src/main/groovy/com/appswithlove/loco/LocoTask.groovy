@@ -17,12 +17,17 @@ class LocoTask extends DefaultTask {
     @TaskAction
     void doLast() {
 
-        //Determine wheter it should show comments or not
+        //Determine whether it should show comments or not
         def parameter = "?no-comments=${project.Loco.hideComments}"
 
         // Add tags filter
         if (project.Loco.tags != null) {
             parameter = parameter + "&filter=${project.Loco.tags}"
+        }
+
+        // If a fallback language was specified, include it as a parameter
+        if (project.Loco.fallbackLang != null) {
+            parameter = parameter + "&fallback=${project.Loco.fallbackLang}"
         }
 
         for (String lang in project.Loco.lang) {

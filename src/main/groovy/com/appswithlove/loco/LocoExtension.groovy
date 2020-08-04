@@ -10,4 +10,5 @@ class LocoExtension {
     def placeholderPattern = null
     def hideComments = false
     def tags
+    def fallbackLang = null
 }
