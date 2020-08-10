@@ -39,7 +39,7 @@ class LocoTask extends DefaultTask {
                 requestMethod = 'GET'
 
                 def text = content.text
-                text = new String(text.getBytes("UTF-8"), "UTF-8")
+                text = new String(text.getBytes("UTF-16"), "UTF-16")
 
                 if (project.Loco.placeholderPattern != null) {
                     text = text.replaceAll(project.Loco.placeholderPattern, "%s")
@@ -47,6 +47,12 @@ class LocoTask extends DefaultTask {
 
                 def appendix = ""
                 if (lang != project.Loco.defLang) {
+                    // Certain languages have multiple regions (e.g., Spanish (Spain) and Spanish (Mexico)),
+                    // and their folder titles have an additional "r" in them.
+                    if (lang.contains("-")) {
+                        lang = lang.replace("-", "-r")
+                    }
+
                     appendix = "-$lang"
                 }
 
