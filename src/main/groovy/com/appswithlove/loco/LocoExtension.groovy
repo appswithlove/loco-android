@@ -11,4 +11,5 @@ class LocoExtension {
     def hideComments = false
     def tags
     def fallbackLang = null
+    def orderByAssetId = false
 }

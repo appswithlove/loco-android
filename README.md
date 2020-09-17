@@ -45,8 +45,8 @@ Loco {
     hideComments = false // optionally hide comments & loco metadata 
     tags = 'Android, !iOS' // optional, filter assets by comma-separated tag names. Match any tag with `*` and negate tags by prefixing with `!`	 
     fallbackLang = 'en' // optional, fallback language when not present
+    orderByAssetId = false // optionally order assets alphabetically by Asset ID
 }
-
 ```
 
 4.Done! 
