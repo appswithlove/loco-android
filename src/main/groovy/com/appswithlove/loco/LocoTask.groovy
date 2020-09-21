@@ -43,9 +43,7 @@ class LocoTask extends DefaultTask {
                 doOutput = true
                 requestMethod = 'GET'
 
-                def text = content.text
-                text = new String(text.getBytes("UTF-16"), "UTF-16")
-
+                def text = content.getText("UTF-8")
                 if (project.Loco.placeholderPattern != null) {
                     text = text.replaceAll(project.Loco.placeholderPattern, "%s")
                 }
