@@ -17,7 +17,7 @@ class LocoTask extends DefaultTask {
     @TaskAction
     void doLast() {
 
-        //Determine whether it should show comments or not
+        // Determine whether it should show comments or not
         def parameter = "?no-comments=${project.Loco.hideComments}"
 
         // Add tags filter
@@ -28,6 +28,11 @@ class LocoTask extends DefaultTask {
         // If a fallback language was specified, include it as a parameter
         if (project.Loco.fallbackLang != null) {
             parameter = parameter + "&fallback=${project.Loco.fallbackLang}"
+        }
+
+        // Determine whether assets should be ordered alphabetically by Asset ID, include parameter if necessary
+        if (project.Loco.orderByAssetId) {
+            parameter = parameter + "&order=id"
         }
 
         for (String lang in project.Loco.lang) {
