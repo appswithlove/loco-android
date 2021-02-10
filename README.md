@@ -17,7 +17,7 @@ In oder to use the plugin follow those steps:
 buildscript {
   repositories {
     //…
-    mavenLocal()
+    mavenCentral()
   }
 
   dependencies {
@@ -85,7 +85,7 @@ In order to debug the plugin, `clean` -> `jar` -> `publishJarPublicationToMavenL
 ```groovy
 buildscript {
 	repositories {
-		mavenLocal()
+		mavenCentral()
 		...
 	}
 	dependencies{
