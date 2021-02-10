@@ -85,7 +85,7 @@ In order to debug the plugin, `clean` -> `jar` -> `publishJarPublicationToMavenL
 ```groovy
 buildscript {
 	repositories {
-		mavenCentral()
+		mavenLocal()
 		...
 	}
 	dependencies{
