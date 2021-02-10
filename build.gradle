@@ -1,4 +1,7 @@
 buildscript {
+    ext {
+        kotlin_version = '1.4.21'
+    }
     repositories {
         maven {
             url "https://plugins.gradle.org/m2/"
@@ -7,7 +10,9 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
+        classpath 'com.vanniktech:gradle-maven-publish-plugin:0.13.0'
+        classpath 'org.jetbrains.dokka:dokka-gradle-plugin:1.4.20'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
@@ -15,6 +20,7 @@ plugins {
     id 'maven'
     id 'maven-publish'
     id 'com.github.kt3k.coveralls' version '2.4.0'
+    id 'signing'
 }
 
 repositories {
@@ -26,16 +32,10 @@ apply plugin: 'groovy'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
 apply plugin: 'java-gradle-plugin'
-apply from: "${rootDir}/gradle/meta.gradle"
-apply plugin: 'com.jfrog.bintray'
+apply plugin: "com.vanniktech.maven.publish"
 
-def folder = new File("${rootDir}/gradle/bintray.gradle")
-if (folder.exists()) {
-    apply from: "${rootDir}/gradle/bintray.gradle"
-}
-
-group meta.group
-version meta.versionName
+group GROUP
+version VERSION_NAME
 
 dependencies {
     compile gradleApi()
@@ -53,51 +53,15 @@ test {
     }
 }
 
-bintray {
-    user = bintray.user
-    key = bintray.key
-    publications = ["jar"]
-    configurations = ['archives']
-    pkg {
-        repo = meta.pomArtifactId
-        name = "${meta.pomArtifactId}-plugin"
-        licenses = ['Apache-2.0']
-        vcsUrl = 'https://github.com/appswithlove/loco-android'
-        desc = 'This is a gradle plugin for easy synchronizing Loco text strings with Android projects'
-        version {
-            name = meta.versionName
-            desc = 'Loco Plugin for Android'
-            released = new Date()
-            vcsTag = meta.versionName
-        }
-        publish = true
-    }
-}
-
-task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = 'sources'
-    from sourceSets.main.allSource
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
-artifacts {
-    archives sourcesJar, javadocJar
-}
-
-publishing {
-    publications {
-        jar(MavenPublication) {
-            groupId meta.group
-            version = meta.versionName
-            artifactId meta.pomArtifactId
-            artifact("$buildDir/libs/${meta.pomArtifactId}-android-${meta.versionName}.jar")
-
-            artifact sourcesJar
-            artifact javadocJar
+mavenPublish {
+    targets {
+        // Modify the existing uploadArchives task
+        uploadArchives {
+            releaseRepositoryUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+            snapshotRepositoryUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
+            // repositoryUsername = // This defaults to either the SONATYPE_NEXUS_USERNAME Gradle property or the system environment variable.
+            // repositoryPassword =  // This defaults to either the SONATYPE_NEXUS_PASSWORD Gradle property or the system environment variable.
+            signing = true
         }
     }
 }

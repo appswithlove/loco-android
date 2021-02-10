@@ -1,5 +1,0 @@
-ext {
-    bintray = [:]
-    bintray.user = "USER"
-    bintray.key = "KEY"
-}

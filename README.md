@@ -17,12 +17,12 @@ In oder to use the plugin follow those steps:
 buildscript {
   repositories {
     //…
-    jcenter()
+    mavenLocal()
   }
 
   dependencies {
     //…
-    classpath 'com.appswithlove.loco:loco:0.1.8'
+    classpath 'com.appswithlove.loco:loco:0.1.9'
   }
 }
 ```
@@ -31,7 +31,7 @@ buildscript {
 
 ```groovy
 apply plugin: 'com.appswithlove.loco'
-```
+``` 
 
 3.Configure the Loco instance in `app/build.gradle`:
 
@@ -89,7 +89,7 @@ buildscript {
 		...
 	}
 	dependencies{
-	    classpath 'com.appswithlove.loco:loco:0.1.8'
+	    classpath 'com.appswithlove.loco:loco:0.1.9'
 	    ...
 	} 
 }
