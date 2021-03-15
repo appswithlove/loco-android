@@ -32,6 +32,14 @@ buildscript {
 ```groovy
 apply plugin: 'com.appswithlove.loco'
 ``` 
+or
+```groovy
+plugins {
+    ...
+    id 'com.appswithlove.loco'
+}
+``` 
+
 
 3.Configure the Loco instance in `app/build.gradle`:
 
@@ -43,7 +51,7 @@ Loco {
     resDir = "$projectDir/src/main/res"
     placeholderPattern = null // optional, regex pattern with leading ~, default -> null
     hideComments = false // optionally hide comments & loco metadata 
-    tags = 'Android, !iOS' // optional, filter assets by comma-separated tag names. Match any tag with `*` and negate tags by prefixing with `!`	 
+    tags = 'Android,!iOS' // optional, filter assets by comma-separated tag names. Match any tag with `*` and negate tags by prefixing with `!`	 
     fallbackLang = 'en' // optional, fallback language when not present
     orderByAssetId = false // optionally order assets alphabetically by Asset ID
 }
