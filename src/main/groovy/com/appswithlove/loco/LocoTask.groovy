@@ -1,7 +1,7 @@
 package com.appswithlove.loco
 
-import groovy.transform.Internal
 import org.gradle.api.DefaultTask
+import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
 
 class LocoTask extends DefaultTask {
