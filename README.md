@@ -1,7 +1,8 @@
 # loco-android 
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/c09a5a2d2d6444b38b092bdaa94aa964)](https://app.codacy.com/app/yannickpulver/loco-android?utm_source=github.com&utm_medium=referral&utm_content=appswithlove/loco-android&utm_campaign=Badge_Grade_Dashboard)
-[![Download](https://api.bintray.com/packages/appswithlove/loco/loco-plugin/images/download.svg)](https://bintray.com/appswithlove/loco/loco-plugin/_latestVersion)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.appswithlove.loco/loco/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.appswithlove.loco/loco)
+
 
 🇯🇵 🇰🇷 🇩🇪 🇨🇳 🇺🇸 🇫🇷 🇪🇸 🇮🇹 🇷🇺 🇬🇧
 
@@ -32,6 +33,14 @@ buildscript {
 ```groovy
 apply plugin: 'com.appswithlove.loco'
 ``` 
+or
+```groovy
+plugins {
+    ...
+    id 'com.appswithlove.loco'
+}
+``` 
+
 
 3.Configure the Loco instance in `app/build.gradle`:
 
@@ -43,7 +52,7 @@ Loco {
     resDir = "$projectDir/src/main/res"
     placeholderPattern = null // optional, regex pattern with leading ~, default -> null
     hideComments = false // optionally hide comments & loco metadata 
-    tags = 'Android, !iOS' // optional, filter assets by comma-separated tag names. Match any tag with `*` and negate tags by prefixing with `!`	 
+    tags = 'Android,!iOS' // optional, filter assets by comma-separated tag names. Match any tag with `*` and negate tags by prefixing with `!`	 
     fallbackLang = 'en' // optional, fallback language when not present
     orderByAssetId = false // optionally order assets alphabetically by Asset ID
 }
