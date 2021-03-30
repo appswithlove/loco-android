@@ -1,11 +1,14 @@
 package com.appswithlove.loco
 
+import groovy.transform.Internal
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 
 class LocoTask extends DefaultTask {
     // Name of the task
     public static String NAME = 'updateLoco'
+
+    @Internal
     LocoExtension extension
 
     LocoTask() {
