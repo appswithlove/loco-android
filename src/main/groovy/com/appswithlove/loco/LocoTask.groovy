@@ -68,7 +68,7 @@ class LocoTask extends DefaultTask {
                     directory.mkdir()
                 }
 
-                def file = new File(directory.absolutePath + "/strings.xml")
+                def file = new File(directory.absolutePath + "/" + project.Loco.fileName + ".xml")
                 file.write(text)
             }
         }
