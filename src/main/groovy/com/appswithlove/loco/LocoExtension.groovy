@@ -7,6 +7,7 @@ class LocoExtension {
     def lang = ['en']
     def defLang = 'en'
     def resDir
+    def fileName = "strings"
     def placeholderPattern = null
     def hideComments = false
     def tags
