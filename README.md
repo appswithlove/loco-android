@@ -50,11 +50,12 @@ Loco {
     lang = ['de', 'fr'] // add as many languages as you want, they need to exist on localise.biz
     defLang = 'de' // one language that will result as the default language and be put in values/strings.xml
     resDir = "$projectDir/src/main/res"
-    placeholderPattern = null // optional, regex pattern with leading ~, default -> null
-    hideComments = false // optionally hide comments & loco metadata 
-    tags = 'Android,!iOS' // optional, filter assets by comma-separated tag names. Match any tag with `*` and negate tags by prefixing with `!`	 
-    fallbackLang = 'en' // optional, fallback language when not present
-    orderByAssetId = false // optionally order assets alphabetically by Asset ID
+    placeholderPattern = null // optional; regex pattern with leading ~, default -> null
+    fileName = "strings" // optional; customise file name
+    hideComments = false // optional; hide comments & loco metadata 
+    tags = 'Android,!iOS' // optional; filter assets by comma-separated tag names. Match any tag with `*` and negate tags by prefixing with `!`	 
+    fallbackLang = 'en' // optional;, fallback language when not present
+    orderByAssetId = false // optional; order assets alphabetically by Asset ID
 }
 ```
 
