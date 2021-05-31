@@ -23,7 +23,7 @@ buildscript {
 
   dependencies {
     //…
-    classpath 'com.appswithlove.loco:loco:0.1.11'
+    classpath 'com.appswithlove.loco:loco:0.1.12'
   }
 }
 ```
@@ -98,7 +98,7 @@ buildscript {
 		...
 	}
 	dependencies{
-	    classpath 'com.appswithlove.loco:loco:0.1.11'
+	    classpath 'com.appswithlove.loco:loco:0.1.12'
 	    ...
 	} 
 }
