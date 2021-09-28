@@ -75,7 +75,7 @@ Otherwise, you can call the gradle tasks via command:
 
 ## ⚠️ Keep in mind
 
-Executing `updateLoco` will override all existing `values.xml` files of the given `languages`. Any type of app specific text strings should be placed into a separate string file, such as `constants.xml`.
+Executing `updateLoco` will override all existing `strings.xml` (or other, if custom `fileName`) files of the given `languages`. Any type of app specific text strings should be placed into a separate string file, such as `constants.xml`.
 
 ---
 
