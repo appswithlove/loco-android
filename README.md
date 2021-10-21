@@ -22,7 +22,7 @@ buildscript {
 
   dependencies {
     //…
-    classpath 'com.appswithlove.loco:loco:0.1.12'
+    classpath 'com.appswithlove.loco:loco:0.2.0'
   }
 }
 ```
@@ -85,14 +85,14 @@ separate string file, such as `constants.xml`.
 
 ## Multiple Loco Projects
 
-If you need to access different Loco projects, this can be done via configuration in `app/build.gradle`:
+Starting from Version `0.2.0`, there is support for multiple Loco configs in the same project. For example, if you need to manage different files from different Loco projects. This can be done via configuration in `app/build.gradle`:
 
 ```groovy
 import com.appswithlove.loco.LocoConfig
 
 LocoMultiple {
     configs = [
-        new LocoConfig(
+        new LocoConfig().with {
             apiKey: 'FIRST_API_KEY',
             lang: ['de', 'fr'], // add as many languages as you want, they need to exist on localise.biz
             defLang: 'de', // one language that will result as the default language and be put in values/strings.xml
@@ -103,8 +103,9 @@ LocoMultiple {
             tags: 'Android,!iOS', // optional; filter assets by comma-separated tag names. Match any tag with `*` and negate tags by prefixing with `!`	 
             fallbackLang: 'en', // optional;, fallback language when not present
             orderByAssetId: false // optional; order assets alphabetically by Asset ID
+            it // Important: Note the explicit mention of it as the return value
         ),
-        new LocoConfig(
+        new LocoConfig().with {
             apiKey: 'SECOND_API_KEY',
             lang: ['de', 'fr'], // add as many languages as you want, they need to exist on localise.biz
             defLang: 'de', // one language that will result as the default language and be put in values/strings.xml
@@ -115,10 +116,14 @@ LocoMultiple {
             tags: 'Android,!iOS', // optional; filter assets by comma-separated tag names. Match any tag with `*` and negate tags by prefixing with `!`	 
             fallbackLang: 'en', // optional;, fallback language when not present
             orderByAssetId: false // optional; order assets alphabetically by Asset ID
+            it // Important: Note the explicit mention of it as the return value
         )
     ]
 }
 ```
+
+It is important to add the `it` to the end of the creation of your config, if done with `new LocoConfig().with { ... }`
+
 
 To support multiple import, you can use :
 
@@ -154,7 +159,7 @@ buildscript {
 		...
 	}
 	dependencies{
-	    classpath 'com.appswithlove.loco:loco:0.1.12'
+	    classpath 'com.appswithlove.loco:loco:0.2.0'
 	    ...
 	} 
 }
