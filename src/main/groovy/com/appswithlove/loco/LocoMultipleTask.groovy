@@ -5,24 +5,28 @@ import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
 
 /**
- * Task to update from a single loco file
+ * Task to update from multiple loco files
  */
-class LocoTask extends DefaultTask {
+class LocoMultipleTask extends DefaultTask {
     // Name of the task
-    public static String NAME = 'updateLoco'
+    public static String NAME = 'updateLocoMultiple'
 
     @Internal
-    LocoConfig extension
+    LocoExtension extension
 
-    LocoTask() {
+    LocoMultipleTask() {
         project.afterEvaluate {
-            extension = project.extensions."${LocoExtension.NAME}"
+            extension = project.extensions.LocoMultiple
         }
     }
 
     @TaskAction
     void doLast() {
-        TaskUtils.generate(project.Loco)
+        // Iterate on each configuration and generate xml file based on it
+        extension.configs.each {
+            TaskUtils.generate(it)
+        }
+
         ok()
     }
 

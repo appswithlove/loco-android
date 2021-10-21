@@ -44,38 +44,95 @@ plugins {
 
 3.Configure the Loco instance in `app/build.gradle`:
 
+Single loco file configuration
 ```groovy
 Loco {
     apiKey = 'YOUR_API_KEY'
     lang = ['de', 'fr'] // add as many languages as you want, they need to exist on localise.biz
-    defLang = 'de' // one language that will result as the default language and be put in values/strings.xml
+    defLang = 'de'
+    // one language that will result as the default language and be put in values/strings.xml
     resDir = "$projectDir/src/main/res"
     placeholderPattern = null // optional; regex pattern with leading ~, default -> null
     fileName = "strings" // optional; customise file name
     hideComments = false // optional; hide comments & loco metadata 
-    tags = 'Android,!iOS' // optional; filter assets by comma-separated tag names. Match any tag with `*` and negate tags by prefixing with `!`	 
+    tags = 'Android,!iOS'
+    // optional; filter assets by comma-separated tag names. Match any tag with `*` and negate tags by prefixing with `!`	 
     fallbackLang = 'en' // optional;, fallback language when not present
     orderByAssetId = false // optional; order assets alphabetically by Asset ID
 }
 ```
 
-4.Done! 
+3.bis Configure multiple loco files configuration in `app/build.gradle`:
+
+```groovy
+import com.appswithlove.loco.LocoConfig
+
+
+LocoMultiple {
+    configs = [
+        new LocoConfig(
+            apiKey: 'FIRST_API_KEY',
+            lang: ['de', 'fr'], // add as many languages as you want, they need to exist on localise.biz
+            defLang: 'de', // one language that will result as the default language and be put in values/strings.xml
+            resDir: "$projectDir/src/main/res",
+            placeholderPattern: null, // optional; regex pattern with leading ~, default -> null
+            fileName: "strings", // optional; customise file name
+            hideComments: false, // optional; hide comments & loco metadata 
+            tags: 'Android,!iOS', // optional; filter assets by comma-separated tag names. Match any tag with `*` and negate tags by prefixing with `!`	 
+            fallbackLang: 'en', // optional;, fallback language when not present
+            orderByAssetId: false // optional; order assets alphabetically by Asset ID
+        ),
+        new LocoConfig(
+            apiKey: 'SECOND_API_KEY',
+            lang: ['de', 'fr'], // add as many languages as you want, they need to exist on localise.biz
+            defLang: 'de', // one language that will result as the default language and be put in values/strings.xml
+            resDir: "$projectDir/src/main/res",
+            placeholderPattern: null, // optional; regex pattern with leading ~, default -> null
+            fileName: "strings", // optional; customise file name
+            hideComments: false, // optional; hide comments & loco metadata 
+            tags: 'Android,!iOS', // optional; filter assets by comma-separated tag names. Match any tag with `*` and negate tags by prefixing with `!`	 
+            fallbackLang: 'en', // optional;, fallback language when not present
+            orderByAssetId: false // optional; order assets alphabetically by Asset ID
+        )
+    ]
+}
+```
+
+4.Done!
 
 ## Usage
+
 After installing the plugin, you should be able to find the Gradle Loco tasks in Android Studio.
+
 ```console 
 "Gradle Project" Window -> Tasks -> Other -> updateLoco
 ```
-Otherwise, you can call the gradle tasks via command: 
+
+Otherwise, you can call the gradle tasks via command:
+
 ```console
 ./gradlew updateLoco
+```
+
+To support multiple import, you can use :
+
+```console 
+"Gradle Project" Window -> Tasks -> Other -> updateLocoMultiple
+```
+
+or
+
+```console
+./gradlew updateLocoMultiple
 ```
 
 ---
 
 ## ⚠️ Keep in mind
 
-Executing `updateLoco` will override all existing `strings.xml` (or other, if custom `fileName`) files of the given `languages`. Any type of app specific text strings should be placed into a separate string file, such as `constants.xml`.
+Executing `updateLoco` will override all existing `strings.xml` (or other, if custom `fileName`)
+files of the given `languages`. Any type of app specific text strings should be placed into a
+separate string file, such as `constants.xml`.
 
 ---
 
