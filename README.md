@@ -1,6 +1,5 @@
 # loco-android 
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/c09a5a2d2d6444b38b092bdaa94aa964)](https://app.codacy.com/app/yannickpulver/loco-android?utm_source=github.com&utm_medium=referral&utm_content=appswithlove/loco-android&utm_campaign=Badge_Grade_Dashboard)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.appswithlove.loco/loco/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.appswithlove.loco/loco)
 
 
@@ -44,7 +43,7 @@ plugins {
 
 3.Configure the Loco instance in `app/build.gradle`:
 
-Single loco file configuration
+Single loco configuration (most common):
 ```groovy
 Loco {
     apiKey = 'YOUR_API_KEY'
@@ -62,11 +61,34 @@ Loco {
 }
 ```
 
-3.bis Configure multiple loco files configuration in `app/build.gradle`:
+4.Done!
+
+## Usage
+
+After installing the plugin, you should be able to find the Gradle Loco tasks in Android Studio.
+
+```console 
+"Gradle Project" Window -> Tasks -> Other -> updateLoco
+```
+
+Otherwise, you can call the gradle tasks via command:
+
+```console
+./gradlew updateLoco
+```
+
+## ⚠️ Keep in mind
+
+Executing `updateLoco` will override all existing `strings.xml` (or other, if custom `fileName`)
+files of the given `languages`. Any type of app specific text strings should be placed into a
+separate string file, such as `constants.xml`.
+
+## Multiple Loco Projects
+
+If you need to access different Loco projects, this can be done via configuration in `app/build.gradle`:
 
 ```groovy
 import com.appswithlove.loco.LocoConfig
-
 
 LocoMultiple {
     configs = [
@@ -98,22 +120,6 @@ LocoMultiple {
 }
 ```
 
-4.Done!
-
-## Usage
-
-After installing the plugin, you should be able to find the Gradle Loco tasks in Android Studio.
-
-```console 
-"Gradle Project" Window -> Tasks -> Other -> updateLoco
-```
-
-Otherwise, you can call the gradle tasks via command:
-
-```console
-./gradlew updateLoco
-```
-
 To support multiple import, you can use :
 
 ```console 
@@ -125,14 +131,6 @@ or
 ```console
 ./gradlew updateLocoMultiple
 ```
-
----
-
-## ⚠️ Keep in mind
-
-Executing `updateLoco` will override all existing `strings.xml` (or other, if custom `fileName`)
-files of the given `languages`. Any type of app specific text strings should be placed into a
-separate string file, such as `constants.xml`.
 
 ---
 
