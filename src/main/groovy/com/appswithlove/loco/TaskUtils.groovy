@@ -27,6 +27,7 @@ class TaskUtils {
             def baseUrl = new URL("${locoConfig.locoBaseUrl}/${lang}.xml${parameter}")
             HttpURLConnection connection = (HttpURLConnection) baseUrl.openConnection()
             connection.addRequestProperty("Authorization", "Loco ${locoConfig.apiKey}")
+            connection.addRequestProperty("Accept-Charset", "utf8")
             connection.with {
                 doOutput = true
                 requestMethod = 'GET'
