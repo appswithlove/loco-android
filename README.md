@@ -22,7 +22,7 @@ buildscript {
 
   dependencies {
     //…
-    classpath 'com.appswithlove.loco:loco:0.2.1'
+    classpath 'com.appswithlove.loco:loco:0.2.2'
   }
 }
 ```
@@ -58,6 +58,7 @@ Loco {
     // optional; filter assets by comma-separated tag names. Match any tag with `*` and negate tags by prefixing with `!`	 
     fallbackLang = 'en' // optional;, fallback language when not present
     orderByAssetId = false // optional; order assets alphabetically by Asset ID
+    status = "translated" // optional; filter assets by status. Negate values by prefixing with !. e.g. "translated", or "!fuzzy".
 }
 ```
 
@@ -101,8 +102,9 @@ LocoMultiple {
             fileName: "strings", // optional; customise file name
             hideComments: false, // optional; hide comments & loco metadata 
             tags: 'Android,!iOS', // optional; filter assets by comma-separated tag names. Match any tag with `*` and negate tags by prefixing with `!`	 
-            fallbackLang: 'en', // optional;, fallback language when not present
+            fallbackLang: 'en', // optional; fallback language when not present
             orderByAssetId: false // optional; order assets alphabetically by Asset ID
+            status: "translated" // optional; filter assets by status. Negate values by prefixing with !. e.g. "translated", or "!fuzzy".
             it // Important: Note the explicit mention of it as the return value
         ),
         new LocoConfig().with {
@@ -116,6 +118,7 @@ LocoMultiple {
             tags: 'Android,!iOS', // optional; filter assets by comma-separated tag names. Match any tag with `*` and negate tags by prefixing with `!`	 
             fallbackLang: 'en', // optional;, fallback language when not present
             orderByAssetId: false // optional; order assets alphabetically by Asset ID
+            status: "translated" // optional; filter assets by status. Negate values by prefixing with !. e.g. "translated", or "!fuzzy".
             it // Important: Note the explicit mention of it as the return value
         )
     ]
@@ -159,7 +162,7 @@ buildscript {
 		...
 	}
 	dependencies{
-	    classpath 'com.appswithlove.loco:loco:0.2.1'
+	    classpath 'com.appswithlove.loco:loco:0.2.2'
 	    ...
 	} 
 }

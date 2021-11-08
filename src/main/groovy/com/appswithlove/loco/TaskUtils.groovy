@@ -13,6 +13,11 @@ class TaskUtils {
             parameter = parameter + "&filter=${locoConfig.tags}"
         }
 
+        // Add status filter
+        if (locoConfig.status != null) {
+            parameter = parameter + "&status=${locoConfig.status}"
+        }
+
         // If a fallback language was specified, include it as a parameter
         if (locoConfig.fallbackLang != null) {
             parameter = parameter + "&fallback=${locoConfig.fallbackLang}"

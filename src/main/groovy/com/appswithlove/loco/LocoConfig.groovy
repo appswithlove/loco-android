@@ -12,4 +12,5 @@ class LocoConfig {
     def tags
     def fallbackLang = null
     def orderByAssetId = false
+    def status
 }
