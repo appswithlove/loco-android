@@ -54,8 +54,8 @@ Loco {
     placeholderPattern = null // optional; regex pattern with leading ~, default -> null
     fileName = "strings" // optional; customise file name
     hideComments = false // optional; hide comments & loco metadata 
-    tags = 'Android,!iOS'
-    // optional; filter assets by comma-separated tag names. Match any tag with `*` and negate tags by prefixing with `!`	 
+    tags = 'Android,!iOS' 
+    // optional; filter assets by comma-separated tag names. Match any tag with `*` and negate tags by prefixing with `!`. Whitespaces need to be replaced with _ (e.g. "Some tag" becomes "Some_tag").	 
     fallbackLang = 'en' // optional;, fallback language when not present
     orderByAssetId = false // optional; order assets alphabetically by Asset ID
     status = "translated" // optional; filter assets by status. Negate values by prefixing with !. e.g. "translated", or "!fuzzy".
@@ -101,7 +101,7 @@ LocoMultiple {
             placeholderPattern: null, // optional; regex pattern with leading ~, default -> null
             fileName: "strings", // optional; customise file name
             hideComments: false, // optional; hide comments & loco metadata 
-            tags: 'Android,!iOS', // optional; filter assets by comma-separated tag names. Match any tag with `*` and negate tags by prefixing with `!`	 
+            tags: 'Android,!iOS', // optional; filter assets by comma-separated tag names. Match any tag with `*` and negate tags by prefixing with `!`. Whitespaces need to be replaced with _ (e.g. "Some tag" becomes "Some_tag").	 
             fallbackLang: 'en', // optional; fallback language when not present
             orderByAssetId: false // optional; order assets alphabetically by Asset ID
             status: "translated" // optional; filter assets by status. Negate values by prefixing with !. e.g. "translated", or "!fuzzy".
@@ -115,7 +115,7 @@ LocoMultiple {
             placeholderPattern: null, // optional; regex pattern with leading ~, default -> null
             fileName: "strings", // optional; customise file name
             hideComments: false, // optional; hide comments & loco metadata 
-            tags: 'Android,!iOS', // optional; filter assets by comma-separated tag names. Match any tag with `*` and negate tags by prefixing with `!`	 
+            tags: 'Android,!iOS', // optional; filter assets by comma-separated tag names. Match any tag with `*` and negate tags by prefixing with `!`. Whitespaces need to be replaced with _ (e.g. "Some tag" becomes "Some_tag").
             fallbackLang: 'en', // optional;, fallback language when not present
             orderByAssetId: false // optional; order assets alphabetically by Asset ID
             status: "translated" // optional; filter assets by status. Negate values by prefixing with !. e.g. "translated", or "!fuzzy".
