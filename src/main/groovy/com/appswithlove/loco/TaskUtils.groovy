@@ -54,6 +54,14 @@ class TaskUtils {
                     appendix = "-$lang"
                 }
 
+                // In some rare cases, the encoding parameter in the xml-tag is 'utf8' instead of 'utf-8'.
+                // todo: if there's a better, more reliable solution to handle this, please submit a PR.
+                def wrongXmlString = '<?xml version="1.0" encoding="utf8"?>'
+                if (text.startsWith(wrongXmlString)) {
+                    def expectedXmlString = '<?xml version="1.0" encoding="utf-8"?>'
+                    text = text.replace(wrongXmlString, expectedXmlString)
+                }
+
                 def directory = new File("${locoConfig.resDir}/values$appendix/")
                 if (!directory.exists()) {
                     directory.mkdir()
