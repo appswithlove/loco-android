@@ -43,16 +43,12 @@ class TaskUtils {
                     text = text.replaceAll(locoConfig.placeholderPattern, "%s")
                 }
 
-                def appendix = ""
-                if (lang != locoConfig.defLang) {
-                    // Certain languages have multiple regions (e.g., Spanish (Spain) and Spanish (Mexico)),
-                    // and their folder titles have an additional "r" in them.
-                    if (lang.contains("-")) {
-                        lang = lang.replace("-", "-r")
-                    }
-
-                    appendix = "-$lang"
+                // Certain languages have multiple regions (e.g., Spanish (Spain) and Spanish (Mexico)),
+                // and their folder titles have an additional "r" in them.
+                if (lang.contains("-")) {
+                    lang = lang.replace("-", "-r")
                 }
+                def appendix = "-$lang"
 
                 // In some rare cases, the encoding parameter in the xml-tag is 'utf8' instead of 'utf-8'.
                 // todo: if there's a better, more reliable solution to handle this, please submit a PR.
@@ -62,14 +58,24 @@ class TaskUtils {
                     text = text.replace(wrongXmlString, expectedXmlString)
                 }
 
-                def directory = new File("${locoConfig.resDir}/values$appendix/")
-                if (!directory.exists()) {
-                    directory.mkdir()
+                if (lang == locoConfig.defLang) {
+                    saveFile(locoConfig, text)
                 }
 
-                def file = new File(directory.absolutePath + "/" + locoConfig.fileName + ".xml")
-                file.write(text)
+                if (lang != locoConfig.defLang || locoConfig.saveDefLangDuplicate) {
+                    saveFile(locoConfig, text, appendix)
+                }
             }
         }
+    }
+
+    private static void saveFile(LocoConfig locoConfig, String text, String appendix = "") {
+        def directory = new File("${locoConfig.resDir}/values$appendix/")
+        if (!directory.exists()) {
+            directory.mkdir()
+        }
+
+        def file = new File(directory.absolutePath + "/" + locoConfig.fileName + ".xml")
+        file.write(text)
     }
 }

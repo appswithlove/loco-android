@@ -13,4 +13,5 @@ class LocoConfig {
     def fallbackLang = null
     def orderByAssetId = false
     def status
+    def saveDefLangDuplicate = false
 }

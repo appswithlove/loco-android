@@ -22,7 +22,7 @@ buildscript {
 
   dependencies {
     //…
-    classpath 'com.appswithlove.loco:loco:0.2.4'
+    classpath 'com.appswithlove.loco:loco:0.2.5'
   }
 }
 ```
@@ -59,6 +59,7 @@ Loco {
     fallbackLang = 'en' // optional;, fallback language when not present
     orderByAssetId = false // optional; order assets alphabetically by Asset ID
     status = "translated" // optional; filter assets by status. Negate values by prefixing with !. e.g. "translated", or "!fuzzy".
+    saveDefLangDuplicate: false // default: defLang will only be saved in values folder. If set to true, the defLang will also be saved in the specific folder (such as values-en)
 }
 ```
 
@@ -105,6 +106,7 @@ LocoMultiple {
             fallbackLang: 'en', // optional; fallback language when not present
             orderByAssetId: false // optional; order assets alphabetically by Asset ID
             status: "translated" // optional; filter assets by status. Negate values by prefixing with !. e.g. "translated", or "!fuzzy".
+            saveDefLangDuplicate: false, // default: defLang will only be saved in values folder. If set to true, the defLang will also be saved in the specific folder (such as values-en)
             it // Important: Note the explicit mention of it as the return value
         ),
         new LocoConfig().with {
@@ -119,6 +121,7 @@ LocoMultiple {
             fallbackLang: 'en', // optional;, fallback language when not present
             orderByAssetId: false // optional; order assets alphabetically by Asset ID
             status: "translated" // optional; filter assets by status. Negate values by prefixing with !. e.g. "translated", or "!fuzzy".
+            saveDefLangDuplicate: false, // default: defLang will only be saved in values folder. If set to true, the defLang will also be saved in the specific folder (such as values-en)
             it // Important: Note the explicit mention of it as the return value
         )
     ]
@@ -162,7 +165,7 @@ buildscript {
 		...
 	}
 	dependencies{
-	    classpath 'com.appswithlove.loco:loco:0.2.4'
+	    classpath 'com.appswithlove.loco:loco:0.2.5'
 	    ...
 	} 
 }
