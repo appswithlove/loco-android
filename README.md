@@ -59,7 +59,7 @@ Loco {
     fallbackLang = 'en' // optional;, fallback language when not present
     orderByAssetId = false // optional; order assets alphabetically by Asset ID
     status = "translated" // optional; filter assets by status. Negate values by prefixing with !. e.g. "translated", or "!fuzzy".
-    saveDefLangDuplicate: false // default: defLang will only be saved in values folder. If set to true, the defLang will also be saved in the specific folder (such as values-en)
+    saveDefLangDuplicate = false // default: defLang will only be saved in values folder. If set to true, the defLang will also be saved in the specific folder (such as values-en)
 }
 ```
 
