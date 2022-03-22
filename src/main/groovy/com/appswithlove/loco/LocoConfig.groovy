@@ -14,4 +14,5 @@ class LocoConfig {
     def orderByAssetId = false
     def status
     def saveDefLangDuplicate = false
+    def resourceNamePrefix = null
 }

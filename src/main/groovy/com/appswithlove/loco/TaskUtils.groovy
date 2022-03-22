@@ -43,6 +43,11 @@ class TaskUtils {
                     text = text.replaceAll(locoConfig.placeholderPattern, "%s")
                 }
 
+                if (locoConfig.resourceNamePrefix != null) {
+                    text = text.replaceAll("<string name=\"", "<string name=\"${locoConfig.resourceNamePrefix}")
+                        .replaceAll("<plurals name=\"", "<plurals name=\"${locoConfig.resourceNamePrefix}")
+                }
+
                 // Certain languages have multiple regions (e.g., Spanish (Spain) and Spanish (Mexico)),
                 // and their folder titles have an additional "r" in them.
                 if (lang.contains("-")) {
