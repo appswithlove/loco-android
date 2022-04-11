@@ -14,11 +14,19 @@ buildscript {
         classpath "org.jetbrains.dokka:dokka-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
-        //classpath "com.appswithlove.loco:loco:0.2.6"
 
-        // to test with local version,
-        // you need to build :lib first, and then include this dependency instead of the one above.
-        classpath fileTree(include: ['*.jar'], dir: 'lib/build/libs')
+        // if :lib was built before, take the local version,
+        // otherwise it takes the version on server.
+        // check the Build window for output.
+        File directory = new File("lib/build/libs");
+        File[] contents = directory.listFiles();
+        if (contents == null || contents.length == 0) {
+            println("loco - mavenCentral version")
+            classpath "com.appswithlove.loco:loco:0.2.6"
+        } else {
+            println("loco - local version")
+            classpath fileTree(include: ['*.jar'], dir: 'lib/build/libs')
+        }
     }
 }
 
