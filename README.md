@@ -22,7 +22,7 @@ buildscript {
 
   dependencies {
     //…
-    classpath 'com.appswithlove.loco:loco:0.2.6'
+    classpath 'com.appswithlove.loco:loco:0.2.7'
   }
 }
 ```
@@ -157,7 +157,7 @@ Example for a pattern:
 
 ## Debug
 
-In order to debug the plugin, `clean` -> `jar` -> `publishJarPublicationToMavenLocal` and connect your android App to the mavenLocal-version of the android plugin by adding the following snipped to your root-folder `build.gradle`
+In order to debug the plugin, `clean` -> `jar` -> `publishJarPublicationToMavenLocal` and connect your android App to the mavenLocal-version of the android plugin by adding the following snipped to your root-folder `build.gradle`. Feel free to make use of our sample aswell.
 
 ```groovy
 buildscript {
@@ -166,7 +166,7 @@ buildscript {
 		...
 	}
 	dependencies{
-	    classpath 'com.appswithlove.loco:loco:0.2.6'
+	    classpath 'com.appswithlove.loco:loco:0.2.7'
 	    ...
 	} 
 }
