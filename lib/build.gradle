@@ -1,0 +1,25 @@
+plugins {
+    id 'groovy'
+    id 'maven-publish'
+    id 'java-gradle-plugin'
+    id 'com.vanniktech.maven.publish'
+}
+
+group GROUP
+version VERSION_NAME
+
+dependencies {
+    implementation gradleApi()
+    implementation localGroovy()
+    testImplementation gradleTestKit()
+    testImplementation('org.spockframework:spock-core:1.0-groovy-2.4') {
+        exclude module: 'groovy-all'
+    }
+    testRuntimeOnly 'cglib:cglib-nodep:3.2.0'
+}
+
+test {
+    testLogging {
+        events "passed", "skipped", "failed", "standardOut", "standardError"
+    }
+}
