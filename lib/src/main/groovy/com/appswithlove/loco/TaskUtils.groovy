@@ -28,6 +28,7 @@ class TaskUtils {
             parameter = parameter + "&order=id"
         }
 
+        def singleLang = locoConfig.lang.size() == 1
         for (String lang in locoConfig.lang) {
             def baseUrl = new URL("${locoConfig.locoBaseUrl}/${lang}.xml${parameter}")
             HttpURLConnection connection = (HttpURLConnection) baseUrl.openConnection()
@@ -46,6 +47,10 @@ class TaskUtils {
                 if (locoConfig.resourceNamePrefix != null) {
                     text = text.replaceAll("<string name=\"", "<string name=\"${locoConfig.resourceNamePrefix}")
                         .replaceAll("<plurals name=\"", "<plurals name=\"${locoConfig.resourceNamePrefix}")
+                }
+
+                if (singleLang) {
+                    text = text.replaceAll("<string name=\"", "<string translatable=\"false\" name=\"")
                 }
 
                 // Certain languages have multiple regions (e.g., Spanish (Spain) and Spanish (Mexico)),
