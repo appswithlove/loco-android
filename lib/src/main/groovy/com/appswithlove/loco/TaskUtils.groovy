@@ -64,6 +64,10 @@ class TaskUtils {
                 }
 
                 if (lang == locoConfig.defLang) {
+                    // Ignore missing translation warnings for every string inside the default strings file.
+                    if (locoConfig.ignoreMissingTranslationWarnings) {
+                        text = text.replaceFirst("<resources", "<resources xmlns:tools=\"http://schemas.android.com/tools\" tools:ignore=\"MissingTranslation\" ")
+                    }
                     saveFile(locoConfig, text)
                 }
 
