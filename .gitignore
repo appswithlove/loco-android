@@ -3,7 +3,6 @@
 /.repo/
 /build/
 *.iml
-gradle.properties
 
 # Created by https://www.gitignore.io/api/macos,gradle
 # Edit at https://www.gitignore.io/?templates=macos,gradle
