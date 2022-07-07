@@ -37,7 +37,7 @@ class TaskUtils {
                 doOutput = true
                 requestMethod = 'GET'
 
-                def text = new String(content.text.getBytes("UTF-8"), "UTF-8")
+                def text = inputStream.getText("UTF-8")
 
                 if (locoConfig.placeholderPattern != null) {
                     text = text.replaceAll(locoConfig.placeholderPattern, "%s")
@@ -45,7 +45,7 @@ class TaskUtils {
 
                 if (locoConfig.resourceNamePrefix != null) {
                     text = text.replaceAll("<string name=\"", "<string name=\"${locoConfig.resourceNamePrefix}")
-                        .replaceAll("<plurals name=\"", "<plurals name=\"${locoConfig.resourceNamePrefix}")
+                            .replaceAll("<plurals name=\"", "<plurals name=\"${locoConfig.resourceNamePrefix}")
                 }
 
                 // Certain languages have multiple regions (e.g., Spanish (Spain) and Spanish (Mexico)),
@@ -85,6 +85,6 @@ class TaskUtils {
         }
 
         def file = new File(directory.absolutePath + "/" + locoConfig.fileName + ".xml")
-        file.write(text)
+        file.write(text, "UTF-8")
     }
 }
