@@ -18,7 +18,7 @@ buildscript {
         // if :lib was built before, take the local version,
         // otherwise it takes the version on server.
         // check the Build window for output.
-        File directory = new File("lib/build/libs");
+        File directory = new File(getRootDir(), "/lib/build/libs")
         File[] contents = directory.listFiles();
         if (contents == null || contents.length == 0) {
             println("loco - mavenCentral version")
