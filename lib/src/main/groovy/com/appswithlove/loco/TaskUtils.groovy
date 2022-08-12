@@ -13,6 +13,11 @@ class TaskUtils {
             parameter = parameter + "&filter=${locoConfig.tags}"
         }
 
+        // Add index
+        if (locoConfig.index != null) {
+            parameter = parameter + "&index=${locoConfig.index}"
+        }
+
         // Add status filter
         if (locoConfig.status != null) {
             parameter = parameter + "&status=${locoConfig.status}"
