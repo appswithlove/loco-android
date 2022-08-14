@@ -16,4 +16,5 @@ class LocoConfig {
     def saveDefLangDuplicate = false
     def resourceNamePrefix = null
     def ignoreMissingTranslationWarnings = false
+    def index
 }
