@@ -22,7 +22,7 @@ buildscript {
 
   dependencies {
     //…
-    classpath 'com.appswithlove.loco:loco:0.2.10'
+    classpath 'com.appswithlove.loco:loco:0.2.11'
   }
 }
 ```
@@ -48,20 +48,19 @@ Single loco configuration (most common):
 Loco {
     apiKey = 'YOUR_API_KEY'
     lang = ['de', 'fr'] // add as many languages as you want, they need to exist on localise.biz
-    defLang = 'de'
-    // one language that will result as the default language and be put in values/strings.xml
     resDir = "$projectDir/src/main/res"
+    defLang = 'de' // one language that will result as the default language and be put in values/strings.xml
+    saveDefLangDuplicate = false // default (false): defLang will only be saved in values folder. If set to true, the defLang will also be saved in the specific folder (such as values-en)
     placeholderPattern = null // optional; regex pattern with leading ~, default -> null
     fileName = "strings" // optional; customise file name
     hideComments = false // optional; hide comments & loco metadata 
-    tags = 'Android,!iOS' 
-    // optional; filter assets by comma-separated tag names. Match any tag with `*` and negate tags by prefixing with `!`. Whitespaces need to be replaced with _ (e.g. "Some tag" becomes "Some_tag").	 
+    tags = 'Android,!iOS' // optional; filter assets by comma-separated tag names. Match any tag with `*` and negate tags by prefixing with `!`. Whitespaces need to be replaced with _ (e.g. "Some tag" becomes "Some_tag").	 
     fallbackLang = 'en' // optional;, fallback language when not present
     orderByAssetId = false // optional; order assets alphabetically by Asset ID
     status = "translated" // optional; filter assets by status. Negate values by prefixing with !. e.g. "translated", or "!fuzzy".
-    saveDefLangDuplicate = false // default: defLang will only be saved in values folder. If set to true, the defLang will also be saved in the specific folder (such as values-en)
     resourceNamePrefix = null // optional: string prefix for all resource names (default: null, no prefix)
     ignoreMissingTranslationWarnings = false // optional: use at your own risk, removes linting issues of missing translations
+    index = null // optional: pass in a lookup key such as "id" or "text"
 }
 ```
 
@@ -167,7 +166,7 @@ buildscript {
 		...
 	}
 	dependencies{
-	    classpath 'com.appswithlove.loco:loco:0.2.10'
+	    classpath 'com.appswithlove.loco:loco:0.2.11'
 	    ...
 	} 
 }
