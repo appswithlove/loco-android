@@ -1,6 +1,5 @@
 plugins {
     id 'groovy'
-    id 'maven-publish'
     id 'java-gradle-plugin'
     id 'com.vanniktech.maven.publish'
 }
@@ -23,3 +22,5 @@ test {
         events "passed", "skipped", "failed", "standardOut", "standardError"
     }
 }
+
+
