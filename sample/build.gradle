@@ -64,6 +64,8 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-tooling"
 }
 
+
+// TODO: Update with 0.3.0 as soon as published on mavenCentral
 Loco {
     apiKey = 'LBsleEFqO2zZeYaxU_d7pB8v4XBralr1'
     lang = ['en', 'de']
