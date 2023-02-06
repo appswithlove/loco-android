@@ -19,7 +19,7 @@ jobs:
             -   name: Grant execute permission for gradlew
                 run: chmod +x gradlew
             -   name: Publish with Gradle
-                run: ./gradlew publish
+                run: ./gradlew :lib:publishAllPublicationsToMavenCentralRepository
                 env:
                     ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.ORG_GRADLE_PROJECT_MAVENCENTRALUSERNAME }}
                     ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.ORG_GRADLE_PROJECT_MAVENCENTRALPASSWORD }}
