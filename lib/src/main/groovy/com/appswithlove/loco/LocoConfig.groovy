@@ -8,13 +8,13 @@ class LocoConfig {
     def resDir
     def fileName = "strings"
     def placeholderPattern = null
-    def hideComments = false
+    boolean hideComments = false
     def tags
     def fallbackLang = null
-    def orderByAssetId = false
+    boolean orderByAssetId = false
     def status
-    def saveDefLangDuplicate = false
+    boolean saveDefLangDuplicate = false
     def resourceNamePrefix = null
-    def ignoreMissingTranslationWarnings = false
+    boolean ignoreMissingTranslationWarnings = false
     def index
 }

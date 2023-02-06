@@ -1,5 +1,6 @@
 package com.appswithlove.loco
 
+import org.gradle.api.Action
 import org.gradle.api.Project
 
 class LocoExtension {
@@ -12,9 +13,10 @@ class LocoExtension {
         this.project = project
     }
 
-    void config(Closure closure) {
+    void config(Action<LocoConfig> action) {
         LocoConfig config = new LocoConfig()
-        project.configure(config, closure)
+        project.configure([config], action)
         configList.add(config)
     }
+
 }
