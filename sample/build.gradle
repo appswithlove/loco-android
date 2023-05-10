@@ -67,12 +67,12 @@ dependencies {
 
 // TODO: Update with 0.3.0 as soon as published on mavenCentral
 Loco {
-   // config {
+    config {
         apiKey = 'LBsleEFqO2zZeYaxU_d7pB8v4XBralr1'
         lang = ['en', 'de']
         defLang = 'en'
         resDir = "$projectDir/src/main/res"
         hideComments = true
         orderByAssetId = true
-   // }
+    }
 }
