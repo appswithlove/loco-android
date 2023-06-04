@@ -7,6 +7,7 @@ class LocoConfig {
     def defLang = 'en'
     def resDir
     def fileName = "strings"
+    def replace = [:]
     def placeholderPattern = null
     boolean hideComments = false
     def tags

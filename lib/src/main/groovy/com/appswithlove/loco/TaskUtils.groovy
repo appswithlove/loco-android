@@ -60,6 +60,14 @@ class TaskUtils {
                 }
                 def appendix = "-$lang"
 
+
+                // Replaces given keys with values in the text
+                if (locoConfig.replace.size() > 0) {
+                    locoConfig.replace.each { key, value ->
+                        text = text.replaceAll(key, value)
+                    }
+                }
+
                 // In some rare cases, the encoding parameter in the xml-tag is 'utf8' instead of 'utf-8'.
                 // todo: if there's a better, more reliable solution to handle this, please submit a PR.
                 def wrongXmlString = '<?xml version="1.0" encoding="utf8"?>'

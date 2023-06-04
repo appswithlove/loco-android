@@ -93,7 +93,7 @@ buildscript {
 
     dependencies {
         //…
-        classpath 'com.appswithlove.loco:loco:0.3.0'
+        classpath 'com.appswithlove.loco:loco:0.3.1'
     }
 }
 ```
@@ -135,6 +135,7 @@ Loco {
         resourceNamePrefix = null // optional: string prefix for all resource names (default: null, no prefix)
         ignoreMissingTranslationWarnings = false // optional: use at your own risk, removes linting issues of missing translations
         index = null // optional: pass in a lookup key such as "id" or "text"
+        replace = [:] // optional: replace strings with other strings, e.g. ["foo": "bar"]
     }
 }
 ```
