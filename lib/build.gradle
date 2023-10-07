@@ -2,6 +2,7 @@ plugins {
     id 'groovy'
     id 'java-gradle-plugin'
     id 'com.vanniktech.maven.publish'
+    id 'com.gradle.plugin-publish'
 }
 
 group GROUP
@@ -23,4 +24,19 @@ test {
     }
 }
 
+
+pluginBundle {
+    website = project.findProperty("POM_URL") ?: ""
+    vcsUrl = project.findProperty("POM_SCM_URL") ?: ""
+
+    plugins {
+        loco {
+            id = project.findProperty("GROUP") ?: ""
+            displayName = project.findProperty("POM_NAME") ?: ""
+            description = project.findProperty("POM_DESCRIPTION") ?: ""
+            version = project.findProperty("VERSION_NAME") ?: ""
+            tags = ['loco', 'localization', 'android']
+        }
+    }
+}
 
