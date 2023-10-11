@@ -84,6 +84,15 @@ In oder to use the plugin follow those steps:
 
 1.Add the following code to you `build.gradle` file in the `root` folder.
 
+```kotlin
+// Kotlin DSL
+plugins {
+  id("com.appswithlove.loco") version "0.3.1" apply false
+}
+```
+
+or
+
 ```groovy
 buildscript {
     repositories {
@@ -100,8 +109,12 @@ buildscript {
 
 2.Apply the plugin in `app/build.gradle`.
 
-```groovy
-apply plugin: 'com.appswithlove.loco'
+```kotlin
+// Kotlin DSL
+plugins {
+  ...
+  id("com.appswithlove.loco")
+}
 ``` 
 
 or
