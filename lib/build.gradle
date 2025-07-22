@@ -31,8 +31,7 @@ mavenPublishing {
     configure(new GradlePlugin(new JavadocJar.Javadoc(), true))
 }
 
-
-pluginBundle {
+gradlePlugin {
     website = project.findProperty("POM_URL") ?: ""
     vcsUrl = project.findProperty("POM_SCM_URL") ?: ""
 
@@ -43,7 +42,15 @@ pluginBundle {
             description = project.findProperty("POM_DESCRIPTION") ?: ""
             version = project.findProperty("VERSION_NAME") ?: ""
             tags = ['loco', 'localization', 'android']
+            implementationClass = "com.appswithlove.loco.LocoPlugin"
         }
     }
 }
+
+
+afterEvaluate {
+    tasks.findByName('generateMetadataFileForPluginMavenPublication')?.dependsOn('plainJavadocJar')
+    tasks.findByName('generatePomFileForPluginMavenPublication')?.dependsOn('plainJavadocJar')
+}
+
 
