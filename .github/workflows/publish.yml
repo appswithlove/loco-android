@@ -1,8 +1,8 @@
 name: Publish
 
 on:
-    release:
-        types: [ created ]
+    push:
+        branches: [ production ]
 
 jobs:
     publish:
@@ -19,8 +19,8 @@ jobs:
         - name: Grant execute permission for gradlew
           run: chmod +x gradlew
 
-        - name: Publish to Maven Central
-          run: ./gradlew publish --no-configuration-cache
+        - name: Publish to Maven Central Portal
+          run: ./gradlew :lib:publish --no-configuration-cache
           env:
               ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.SONATYPE_NEXUS_USERNAME }}
               ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.SONATYPE_NEXUS_PASSWORD }}
@@ -28,7 +28,27 @@ jobs:
               ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
 
         - name: Publish to Gradle Plugin Portal
-          run: ./gradlew publishPlugins --no-configuration-cache
+          run: ./gradlew :lib:publishPlugins --no-configuration-cache
           env:
               GRADLE_PUBLISH_KEY: ${{ secrets.GRADLE_PUBLISH_KEY }}
               GRADLE_PUBLISH_SECRET: ${{ secrets.GRADLE_PUBLISH_SECRET }}
+
+        - name: Extract version from gradle.properties
+          id: get_version
+          run: echo "version=$(grep VERSION_NAME gradle.properties | cut -d'=' -f2)" >> $GITHUB_OUTPUT
+
+        - name: Create GitHub Release
+          uses: actions/create-release@v1
+          env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          with:
+              tag_name: ${{ steps.get_version.outputs.version }}
+              release_name: ${{ steps.get_version.outputs.version }}
+              body: |
+                  Automated release ${{ steps.get_version.outputs.version }}
+
+                  Published to:
+                  - Maven Central Portal
+                  - Gradle Plugin Portal
+              draft: false
+              prerelease: false
