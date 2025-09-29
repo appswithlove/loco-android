@@ -82,7 +82,7 @@ Loco {
 
 In oder to use the plugin follow those steps:
 
-1. Add the following code to you `build.gradle` file in the `root` folder.
+1.Add the following code to you `build.gradle` file in the `root` folder.
 
 ```kotlin
 // Kotlin DSL
@@ -107,7 +107,7 @@ buildscript {
 }
 ```
 
-2. Apply the plugin in `app/build.gradle`.
+2.Apply the plugin in `app/build.gradle`.
 
 ```kotlin
 // Kotlin DSL
@@ -126,7 +126,7 @@ plugins {
 }
 ``` 
 
-3. Configure the Loco instance in `app/build.gradle`:
+3.Configure the Loco instance in `app/build.gradle`:
 
 Single loco configuration (most common):
 
@@ -153,7 +153,7 @@ Loco {
 }
 ```
 
-4. Done!
+4.Done!
 
 ## Usage
 
