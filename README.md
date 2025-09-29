@@ -1,6 +1,6 @@
 # loco-android
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.appswithlove.loco/loco/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.appswithlove.loco/loco)
+[![Maven Central](https://maven-badges.sml.io/sonatype-central/com.appswithlove.loco/loco/badge.svg)](https://maven-badges.sml.io/sonatype-central/com.appswithlove.loco/loco)
 
 🇯🇵 🇰🇷 🇩🇪 🇨🇳 🇺🇸 🇫🇷 🇪🇸 🇮🇹 🇷🇺 🇬🇧
 
@@ -82,7 +82,7 @@ Loco {
 
 In oder to use the plugin follow those steps:
 
-1.Add the following code to you `build.gradle` file in the `root` folder.
+1. Add the following code to you `build.gradle` file in the `root` folder.
 
 ```kotlin
 // Kotlin DSL
@@ -107,12 +107,12 @@ buildscript {
 }
 ```
 
-2.Apply the plugin in `app/build.gradle`.
+2. Apply the plugin in `app/build.gradle`.
 
 ```kotlin
 // Kotlin DSL
 plugins {
-  ...
+  // ...
   id("com.appswithlove.loco")
 }
 ``` 
@@ -121,12 +121,12 @@ or
 
 ```groovy
 plugins {
-    ...
+    // ...
     id 'com.appswithlove.loco'
 }
 ``` 
 
-3.Configure the Loco instance in `app/build.gradle`:
+3. Configure the Loco instance in `app/build.gradle`:
 
 Single loco configuration (most common):
 
@@ -153,7 +153,7 @@ Loco {
 }
 ```
 
-4.Done!
+4. Done!
 
 ## Usage
 
@@ -238,11 +238,11 @@ your root-folder `build.gradle`. Feel free to make use of our sample aswell.
 buildscript {
     repositories {
         mavenLocal()
-        ...
+        // ...
     }
     dependencies {
         classpath 'com.appswithlove.loco:loco:0.3.2'
-        ...
+        // ...
     }
 }
 ```
