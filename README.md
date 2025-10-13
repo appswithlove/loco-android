@@ -87,7 +87,7 @@ In oder to use the plugin follow those steps:
 ```kotlin
 // Kotlin DSL
 plugins {
-  id("com.appswithlove.loco") version "0.3.2" apply false
+  id("com.appswithlove.loco") version "0.4.0" apply false
 }
 ```
 
@@ -102,7 +102,7 @@ buildscript {
 
     dependencies {
         //…
-        classpath 'com.appswithlove.loco:loco:0.3.2'
+        classpath 'com.appswithlove.loco:loco:0.4.0'
     }
 }
 ```
@@ -241,7 +241,7 @@ buildscript {
         // ...
     }
     dependencies {
-        classpath 'com.appswithlove.loco:loco:0.3.2'
+        classpath 'com.appswithlove.loco:loco:0.4.0'
         // ...
     }
 }
