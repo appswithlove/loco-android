@@ -1,5 +1,6 @@
-package com.appswithlove.loco
+package com.appswithlove.loco.plugin
 
+import com.appswithlove.loco.util.TaskUtils
 import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
 import org.gradle.api.provider.ListProperty

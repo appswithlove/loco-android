@@ -1,5 +1,10 @@
-package com.appswithlove.loco
+package com.appswithlove.loco.util
 
+import com.appswithlove.loco.Constants
+import com.appswithlove.loco.dto.LocaleDto
+import com.appswithlove.loco.plugin.LocoConfig
+import kotlinx.serialization.json.Json
+import org.gradle.api.GradleException
 import java.io.File
 import java.net.HttpURLConnection
 import java.net.URL
@@ -38,14 +43,21 @@ object TaskUtils {
             parameter += "&order=id"
         }
 
-        for (langEntry in locoConfig.lang) {
+        val languages: List<String> = locoConfig.lang?.takeIf { it.isNotEmpty() } ?: run {
+            println("Languages are not specified in Loco config. Fetching all languages from the project.")
+            val response = fetchAllLanguages(locoConfig.apiKey)
+            response.ifEmpty { emptyList() }
+        }
+
+        for (langEntry in languages) {
             var lang = langEntry
             val baseUrl = URL("${locoConfig.locoBaseUrl}/$lang.xml$parameter")
 
             val connection = baseUrl.openConnection() as HttpURLConnection
             connection.addRequestProperty("Authorization", "Loco ${locoConfig.apiKey}")
             connection.addRequestProperty("Accept-Charset", "utf-8")
-
+            connection.connectTimeout = 10000
+            connection.readTimeout = 10000
             connection.doOutput = true
             connection.requestMethod = "GET"
 
@@ -110,5 +122,30 @@ object TaskUtils {
 
         val file = File(directory.absolutePath, "${locoConfig.fileName}.xml")
         file.writeText(text, Charsets.UTF_8)
+    }
+
+    fun fetchAllLanguages(apiKey: String?): List<String> {
+        if (apiKey != null) {
+            try {
+                val url = URL(Constants.LOCO_LOCALES_URL)
+                val connection = (url.openConnection() as HttpURLConnection).apply {
+                    requestMethod = "GET"
+                    setRequestProperty("Authorization", "Loco $apiKey")
+                    setRequestProperty("Accept", "application/json")
+                    connectTimeout = 10000
+                    readTimeout = 10000
+                }
+
+                val response =
+                    connection.inputStream.bufferedReader(Charsets.UTF_8).use { it.readText() }
+
+                val json = Json { ignoreUnknownKeys = true }
+                return json.decodeFromString<List<LocaleDto>>(response).map { it.code }
+            } catch (e: Exception) {
+                throw GradleException("Error fetching languages: ${e.message}")
+            }
+        } else {
+            throw GradleException("Can't fetch languages. API key is missing in Loco config.")
+        }
     }
 }

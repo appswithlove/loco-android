@@ -9,6 +9,7 @@ plugins {
     alias(libs.plugins.maven.publish)
     alias(libs.plugins.gradle.publish)
     kotlin("jvm")
+    alias(libs.plugins.kotlin.serialization)
 }
 
 dependencies {
@@ -19,6 +20,7 @@ dependencies {
     implementation(libs.gradle)
     implementation(libs.gradle.api)
     implementation(libs.kotlin.stdlib)
+    implementation(libs.kotlinx.serialization.json)
 }
 
 tasks.withType<Test>().configureEach {

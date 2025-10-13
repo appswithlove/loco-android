@@ -1,5 +1,6 @@
-package com.appswithlove.loco
+package com.appswithlove.loco.extensions
 
+import com.appswithlove.loco.plugin.LocoConfig
 import org.gradle.api.Action
 import org.gradle.api.Project
 

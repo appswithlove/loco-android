@@ -6,6 +6,7 @@ activityCompose = "1.11.0"
 coreKtx = "1.17.0"
 cglibNodep = "3.3.0"
 dokkaGradlePlugin = "2.0.0"
+kotlinxSerializationJson = "1.9.0"
 lifecycleRuntimeKtx = "2.9.4"
 maven-publish = "0.34.0"
 gradle-publish = "0.16.0"
@@ -26,6 +27,7 @@ gradle = { module = "com.android.tools.build:gradle", version.ref = "agp" }
 gradle-api = { module = "com.android.tools.build:gradle-api", version.ref = "agp" }
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 material = { module = "androidx.compose.material:material" }
 ui = { module = "androidx.compose.ui:ui" }
@@ -40,4 +42,5 @@ maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "maven-publ
 gradle-publish = { id = "com.gradle.plugin-publish", version.ref = "gradle-publish" }
 coveralls = { id = "com.github.kt3k.coveralls", version.ref = "coveralls" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 loco = { id = "com.appswithlove.loco", version.ref = "loco" }

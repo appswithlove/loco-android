@@ -1,9 +1,11 @@
-package com.appswithlove.loco
+package com.appswithlove.loco.plugin
+
+import com.appswithlove.loco.Constants
 
 class LocoConfig {
-    var locoBaseUrl: String = "https://localise.biz/api/export/locale"
+    var locoBaseUrl: String = Constants.LOCO_EXPORT_LOCALE_URL
     var apiKey: String? = null
-    var lang: List<String> = listOf("en")
+    var lang: List<String>? = null
     var defLang: String = "en"
     var resDir: String? = null
     var fileName: String = "strings"
