@@ -6,7 +6,7 @@ class LocoConfig {
     var locoBaseUrl: String = Constants.LOCO_EXPORT_LOCALE_URL
     var apiKey: String? = null
     var lang: List<String>? = null
-    var defLang: String = "en"
+    var defLang: String? = null
     var resDir: String? = null
     var fileName: String = "strings"
     var replace: Map<String, String> = emptyMap()
