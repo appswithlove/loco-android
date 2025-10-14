@@ -14,5 +14,6 @@ dependencyResolutionManagement {
     }
 }
 
-include ':sample'
-include ':lib'
+rootProject.name = "loco-android"
+include(":sample")
+include(":lib")
