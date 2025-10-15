@@ -27,4 +27,4 @@ jobs:
           run: ./gradlew :lib:publishToMavenLocal --dry-run
 
         - name: Validate Gradle Plugin Portal publishing setup
-          run: ./gradlew :lib:validatePlugins
+          run: ./gradlew :lib:publishPlugins --validate-only
