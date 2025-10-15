@@ -1,5 +1,6 @@
 import com.vanniktech.maven.publish.GradlePlugin
 import com.vanniktech.maven.publish.JavadocJar
+import org.gradle.kotlin.dsl.signing
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
@@ -10,6 +11,7 @@ plugins {
     alias(libs.plugins.gradle.publish)
     kotlin("jvm")
     alias(libs.plugins.kotlin.serialization)
+    signing
 }
 
 dependencies {
@@ -76,4 +78,11 @@ gradlePlugin {
             implementationClass = "com.appswithlove.loco.plugin.LocoPlugin"
         }
     }
+}
+
+signing {
+    val signingInMemoryKey: String? by project
+    val signingInMemoryPassword: String? by project
+    useInMemoryPgpKeys(signingInMemoryKey, signingInMemoryPassword)
+    sign(publishing.publications)
 }
