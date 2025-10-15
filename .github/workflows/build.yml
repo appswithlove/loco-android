@@ -28,3 +28,6 @@ jobs:
 
         - name: Validate Gradle Plugin Portal publishing setup
           run: ./gradlew :lib:publishPlugins --validate-only
+          env:
+            ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_PRIVATE_KEY }}
+            ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
