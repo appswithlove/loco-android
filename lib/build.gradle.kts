@@ -81,8 +81,10 @@ gradlePlugin {
 }
 
 signing {
-    val signingInMemoryKey: String? by project
-    val signingInMemoryPassword: String? by project
-    useInMemoryPgpKeys(signingInMemoryKey, signingInMemoryPassword)
-    sign(publishing.publications)
+    val signingInMemoryKey = project.findProperty("signingInMemoryKey") as String?
+    val signingInMemoryPassword = project.findProperty("signingInMemoryPassword") as String?
+    if (signingInMemoryKey != null && signingInMemoryPassword != null) {
+        useInMemoryPgpKeys(signingInMemoryKey, signingInMemoryPassword)
+        sign(publishing.publications)
+    }
 }
