@@ -12,7 +12,7 @@ class LocoConfig {
     var replace: Map<String, String> = emptyMap()
     var placeholderPattern: String? = null
     var hideComments: Boolean = false
-    var tags: List<String>? = null
+    var tags: String? = null
     var fallbackLang: String? = null
     var orderByAssetId: Boolean = false
     var status: String? = null
