@@ -83,8 +83,15 @@ gradlePlugin {
 signing {
     val signingInMemoryKey = project.findProperty("signingInMemoryKey") as String?
     val signingInMemoryPassword = project.findProperty("signingInMemoryPassword") as String?
+
+    val isReleaseSigningEnabled = project.findProperty("RELEASE_SIGNING_ENABLED")?.toString()?.toBoolean() == true
+    isRequired = isReleaseSigningEnabled
+
     if (signingInMemoryKey != null && signingInMemoryPassword != null) {
         useInMemoryPgpKeys(signingInMemoryKey, signingInMemoryPassword)
-        sign(publishing.publications)
+
+        if (isReleaseSigningEnabled) {
+            sign(publishing.publications)
+        }
     }
 }
