@@ -7,7 +7,7 @@ import org.gradle.api.Project
 class LocoPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         val locoExtension = project.extensions.create(
-            LocoExtension.Companion.NAME,
+            LocoExtension.NAME,
             LocoExtension::class.java,
         )
         val configListProvider = project.providers.provider { locoExtension.configList }
