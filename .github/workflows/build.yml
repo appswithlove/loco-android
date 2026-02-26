@@ -23,6 +23,18 @@ jobs:
         - name: Build with Gradle
           run: ./gradlew build
 
+        - name: Run integration tests
+          run: ./gradlew :lib:integrationTest
+
+        - name: Upload test results
+          if: always()
+          uses: actions/upload-artifact@v4
+          with:
+              name: test-results
+              path: |
+                  lib/build/reports/tests/test/
+                  lib/build/reports/tests/integrationTest/
+
         - name: Validate Maven Central publishing setup
           run: ./gradlew :lib:publishToMavenLocal --dry-run
 
