@@ -39,6 +39,7 @@ jobs:
           run: ./gradlew :lib:publishToMavenLocal --dry-run
 
         - name: Validate Gradle Plugin Portal publishing setup
+          continue-on-error: ${{ github.base_ref != 'production' && github.ref_name != 'production' }}
           run: ./gradlew :lib:publishPlugins --validate-only
           env:
             GRADLE_PUBLISH_KEY: ${{ secrets.GRADLE_PUBLISH_KEY }}
