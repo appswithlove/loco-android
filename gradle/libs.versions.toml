@@ -1,5 +1,7 @@
 [versions]
 agp = "9.0.0"
+junitJupiter = "5.14.3"
+kotestAssertionsCore = "5.9.1"
 kotlin = "2.2.20"
 composeBom = "2025.10.00"
 activityCompose = "1.11.0"
@@ -25,6 +27,9 @@ junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 gradle = { module = "com.android.tools.build:gradle", version.ref = "agp" }
 gradle-api = { module = "com.android.tools.build:gradle-api", version.ref = "agp" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junitJupiter" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
+kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotestAssertionsCore" }
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }

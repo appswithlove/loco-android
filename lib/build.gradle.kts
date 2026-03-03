@@ -16,16 +16,40 @@ plugins {
 
 dependencies {
     implementation(gradleApi())
-    testImplementation(gradleTestKit())
-    testRuntimeOnly(libs.cglib.nodep)
     implementation(libs.kotlin.gradle.plugin)
     implementation(libs.gradle)
     implementation(libs.gradle.api)
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.serialization.json)
+
+    testImplementation(gradleTestKit())
+    testRuntimeOnly(libs.cglib.nodep)
+    testImplementation(libs.kotest.assertions.core)
+    testImplementation(libs.junit.jupiter)
+    testRuntimeOnly(libs.junit.platform.launcher)
+}
+
+sourceSets {
+    create("integrationTest") {
+        compileClasspath += sourceSets.main.get().output + sourceSets.test.get().output
+        runtimeClasspath += sourceSets.main.get().output + sourceSets.test.get().output
+    }
+}
+
+kotlin.target.compilations["integrationTest"].associateWith(kotlin.target.compilations["main"])
+
+configurations["integrationTestImplementation"].extendsFrom(configurations.testImplementation.get())
+configurations["integrationTestRuntimeOnly"].extendsFrom(configurations.testRuntimeOnly.get())
+
+tasks.register<Test>("integrationTest") {
+    description = "Runs integration tests."
+    group = "verification"
+    testClassesDirs = sourceSets["integrationTest"].output.classesDirs
+    classpath = sourceSets["integrationTest"].runtimeClasspath
 }
 
 tasks.withType<Test>().configureEach {
+    useJUnitPlatform()
     testLogging {
         events("passed", "skipped", "failed", "standardOut", "standardError")
     }
