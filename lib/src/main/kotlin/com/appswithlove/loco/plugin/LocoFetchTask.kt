@@ -10,10 +10,10 @@ import org.gradle.api.tasks.TaskAction
 /**
  * Task to update from a single loco file
  */
-abstract class LocoTask : DefaultTask() {
+abstract class LocoFetchTask : DefaultTask() {
 
     companion object {
-        const val NAME = "updateLoco"
+        const val NAME = "locoFetch"
     }
 
     @get:Input

@@ -44,4 +44,32 @@ internal class DefaultLocoHttpClient : LocoHttpClient {
 
         return connection.inputStream.bufferedReader(Charsets.UTF_8).use { it.readText() }
     }
+
+    override fun pushTranslation(
+        apiKey: String,
+        locale: String,
+        xmlContent: String,
+        importBaseUrl: String,
+    ): String {
+        val bytes = xmlContent.toByteArray(Charsets.UTF_8)
+        val connection =
+            (URL("$importBaseUrl/xml?locale=$locale&delete-absent=0").openConnection() as HttpURLConnection).apply {
+                requestMethod = "POST"
+                doOutput = true
+                setRequestProperty("Authorization", "Loco $apiKey")
+                setRequestProperty("Content-Type", "text/xml; charset=utf-8")
+                connectTimeout = 10000
+                readTimeout = 10000
+            }
+        connection.outputStream.use { it.write(bytes) }
+
+        if (connection.responseCode != 200) {
+            val error = (connection.errorStream ?: connection.inputStream)
+                .bufferedReader()
+                .use { it.readText() }
+            throw IllegalStateException("Push failed with code ${connection.responseCode}: $error")
+        }
+
+        return connection.inputStream.bufferedReader(Charsets.UTF_8).use { it.readText() }
+    }
 }

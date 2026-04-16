@@ -4,6 +4,7 @@ import com.appswithlove.loco.Constants
 
 class LocoConfig {
     var locoBaseUrl: String = Constants.LOCO_EXPORT_LOCALE_URL
+    var locoImportBaseUrl: String = Constants.LOCO_IMPORT_URL
     var apiKey: String? = null
     var lang: List<String>? = null
     var defLang: String? = null
