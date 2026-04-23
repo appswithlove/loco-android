@@ -16,7 +16,7 @@ If your project relies on an older version of AGP, please stick to plugin versio
 
 It's no longer needed to differentiate between using this plugin for one or multiple Loco configurations.
 
-The Gradle Loco task `updateLoco` will update the Strings for all configs specified inside the plugin.
+The Gradle Loco task `locoFetch` will update the Strings for all configs specified inside the plugin.
 
 ⚠️ The Gradle Loco task `updateLocoMultiple` has been removed ! ⚠️
 
@@ -86,14 +86,14 @@ Loco {
 
 ## Instructions
 
-In oder to use the plugin follow those steps:
+In order to use the plugin follow those steps:
 
 1.Add the following code to you `build.gradle` file in the `root` folder.
 
 ```kotlin
 // Kotlin DSL
 plugins {
-  id("com.appswithlove.loco") version "1.0.0" apply false
+  id("com.appswithlove.loco") version "1.1.0" apply false
 }
 ```
 
@@ -108,7 +108,7 @@ buildscript {
 
     dependencies {
         //…
-        classpath 'com.appswithlove.loco:loco:1.0.0'
+        classpath 'com.appswithlove.loco:loco:1.1.0'
     }
 }
 ```
@@ -163,21 +163,37 @@ Loco {
 
 ## Usage
 
-After installing the plugin, you should be able to find the Gradle Loco tasks in Android Studio.
+The plugin provides two Gradle tasks:
 
-```console 
-"Gradle Project" Window -> Tasks -> Other -> updateLoco
-```
+### `locoFetch` — fetch strings from Loco into the project
 
-Otherwise, you can call the gradle tasks via command:
+Downloads translations from Loco and writes them to the local `strings.xml` files. This overwrites any local changes for the fetched languages.
 
 ```console
-./gradlew updateLoco
+./gradlew locoFetch
 ```
+
+Or find it in Android Studio: `Gradle` → `Tasks` → `other` → `locoFetch`
+
+> `updateLoco` is kept as a deprecated alias for `locoFetch` and will be removed in a future version.
+
+---
+
+### `locoPush` — push local strings to Loco
+
+Reads your local `strings.xml` files and imports them into the Loco project. Only adds new strings — nothing is deleted from Loco.
+
+> ⚠️ **Requires a Full access key** in the Loco project settings (`Developer tools` → `API keys`).
+
+```console
+./gradlew locoPush
+```
+
+Or find it in Android Studio: `Gradle` → `Tasks` → `other` → `locoPush`
 
 ## ⚠️ Keep in mind
 
-Executing `updateLoco` will override all existing `strings.xml` (or other, if custom `fileName`)
+Executing `locoFetch` will override all existing `strings.xml` (or other, if custom `fileName`)
 files of the given `languages`. Any type of app specific text strings should be placed into a
 separate string file, such as `constants.xml`.
 
@@ -212,13 +228,13 @@ Loco {
 After that you can run the same task as you would for a single config:
 
 ```console 
-"Gradle Project" Window -> Tasks -> Other -> updateLoco
+"Gradle Project" Window -> Tasks -> Other -> locoFetch
 ```
 
 or
 
 ```console
-./gradlew updateLoco
+./gradlew locoFetch
 ```
 
 ---
@@ -247,7 +263,7 @@ buildscript {
         // ...
     }
     dependencies {
-        classpath 'com.appswithlove.loco:loco:1.0.0'
+        classpath 'com.appswithlove.loco:loco:1.1.0'
         // ...
     }
 }
@@ -256,7 +272,7 @@ buildscript {
 After that, call the following script in the terminal of your android app (replace `FLAVOUR`)
 
 ```console
-./gradlew updateLoco -Dorg.gradle.debug=true --no-daemon
+./gradlew locoFetch -Dorg.gradle.debug=true --no-daemon
 ```
 
 Lastly, open the Loco Plugin in Android Studio, add an `Remote` build configuration

@@ -1,6 +1,7 @@
 package com.appswithlove.loco.util
 
 import com.appswithlove.loco.dto.LocaleDto
+import com.appswithlove.loco.dto.PushResultDto
 import com.appswithlove.loco.http.DefaultLocoHttpClient
 import com.appswithlove.loco.http.LocoHttpClient
 import com.appswithlove.loco.plugin.LocoConfig
@@ -82,6 +83,59 @@ object TaskUtils {
             }
         } else {
             throw GradleException("Can't fetch languages. API key is missing in Loco config.")
+        }
+    }
+
+    internal fun push(
+        locoConfig: LocoConfig,
+        httpClient: LocoHttpClient = DefaultLocoHttpClient(),
+    ) {
+        val apiKey = locoConfig.apiKey ?: throw GradleException("apiKey is missing in Loco config.")
+        val resDir = locoConfig.resDir ?: throw GradleException("resDir is missing in Loco config.")
+
+        val locales: List<String> = locoConfig.lang?.takeIf { it.isNotEmpty() } ?: run {
+            println(
+                "Languages not specified in Loco config. Fetching all languages from the project."
+            )
+            fetchAllLanguages(httpClient, apiKey)
+        }
+
+        val json = Json { ignoreUnknownKeys = true }
+
+        for (langEntry in locales) {
+            val androidLang = if (langEntry.contains("-")) {
+                langEntry.replace("-", "-r")
+            } else {
+                langEntry
+            }
+            val folderSuffix = if (langEntry == locoConfig.defLang) "" else "-$androidLang"
+            val file = File("$resDir/values$folderSuffix/${locoConfig.fileName}.xml")
+
+            if (!file.exists()) {
+                println("Skipping $langEntry: file not found at ${file.path}")
+                continue
+            }
+
+            var xmlContent = file.readText(Charsets.UTF_8)
+
+            locoConfig.resourceNamePrefix?.let { prefix ->
+                xmlContent = xmlContent
+                    .replace("<string name=\"$prefix", "<string name=\"")
+                    .replace("<plurals name=\"$prefix", "<plurals name=\"")
+            }
+
+            val response = httpClient.pushTranslation(
+                apiKey = apiKey,
+                locale = langEntry,
+                xmlContent = xmlContent,
+                importBaseUrl = locoConfig.locoImportBaseUrl,
+            )
+            val result = json.decodeFromString<PushResultDto>(response)
+            val progress = result.locales.firstOrNull()?.progress
+            val total = (progress?.translated ?: 0) + (progress?.untranslated ?: 0)
+            println(
+                "[$langEntry] ${result.message} (translated: ${progress?.translated ?: 0}/$total)"
+            )
         }
     }
 

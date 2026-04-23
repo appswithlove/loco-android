@@ -13,7 +13,7 @@ lifecycleRuntimeKtx = "2.9.4"
 maven-publish = "0.34.0"
 gradle-publish = "2.0.0"
 coveralls = "2.4.0"
-loco = "0.4.1"
+loco = "1.0.0"
 junitVersion = "1.3.0"
 junit = "4.13.2"
 

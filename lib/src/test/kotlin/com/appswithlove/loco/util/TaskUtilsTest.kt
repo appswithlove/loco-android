@@ -196,4 +196,96 @@ class TaskUtilsTest {
         File(tempDir, "values/strings.xml").exists() shouldBe true
         File(tempDir, "values-de/strings.xml").exists() shouldBe true
     }
+
+    @Test
+    fun push_withValidConfig_pushesXmlForEachLocale() {
+        File(tempDir, "values").mkdirs()
+        File(tempDir, "values/strings.xml").writeText("<resources><string name=\"hello\">Hello</string></resources>")
+
+        TaskUtils.push(config(), fake)
+
+        fake.capturedPushLocales shouldBe listOf("en")
+    }
+
+    @Test
+    fun push_withMultipleLocales_pushesEachFile() {
+        File(tempDir, "values").mkdirs()
+        File(tempDir, "values-de").mkdirs()
+        File(tempDir, "values/strings.xml").writeText("<resources></resources>")
+        File(tempDir, "values-de/strings.xml").writeText("<resources></resources>")
+
+        TaskUtils.push(config { lang = listOf("en", "de") }, fake)
+
+        fake.capturedPushLocales shouldContainExactlyInAnyOrder listOf("en", "de")
+    }
+
+    @Test
+    fun push_withResourceNamePrefix_stripsPrefix() {
+        File(tempDir, "values").mkdirs()
+        File(tempDir, "values/strings.xml").writeText(
+            """<resources><string name="app_hello">Hello</string><plurals name="app_items"></plurals></resources>"""
+        )
+
+        TaskUtils.push(config { resourceNamePrefix = "app_" }, fake)
+
+        fake.capturedPushBodies[0] shouldContain "\"hello\""
+        fake.capturedPushBodies[0] shouldNotContain "\"app_hello\""
+        fake.capturedPushBodies[0] shouldContain "\"items\""
+        fake.capturedPushBodies[0] shouldNotContain "\"app_items\""
+    }
+
+    @Test
+    fun push_withNullApiKey_throwsGradleException() {
+        shouldThrow<GradleException> {
+            TaskUtils.push(LocoConfig().apply { resDir = tempDir.absolutePath }, fake)
+        }
+    }
+
+    @Test
+    fun push_withNullResDir_throwsGradleException() {
+        shouldThrow<GradleException> {
+            TaskUtils.push(LocoConfig().apply { apiKey = "key" }, fake)
+        }
+    }
+
+    @Test
+    fun push_whenFileNotFound_skipsLocale() {
+        TaskUtils.push(config(), fake)
+
+        fake.capturedPushLocales shouldBe emptyList()
+    }
+
+    @Test
+    fun push_withRegionalLocale_resolvesCorrectFolder() {
+        File(tempDir, "values-es-rMX").mkdirs()
+        File(tempDir, "values-es-rMX/strings.xml").writeText("<resources></resources>")
+
+        TaskUtils.push(config { lang = listOf("es-MX") }, fake)
+
+        fake.capturedPushLocales shouldBe listOf("es-MX")
+    }
+
+    @Test
+    fun push_withNullLang_fetchesLocalesFromApiThenPushes() {
+        fake.localesResponse = """[{"code":"en"},{"code":"de"}]"""
+        File(tempDir, "values").mkdirs()
+        File(tempDir, "values-de").mkdirs()
+        File(tempDir, "values/strings.xml").writeText("<resources></resources>")
+        File(tempDir, "values-de/strings.xml").writeText("<resources></resources>")
+
+        TaskUtils.push(config { lang = null }, fake)
+
+        fake.capturedPushLocales shouldContainExactlyInAnyOrder listOf("en", "de")
+    }
+
+    @Test
+    fun push_withNetworkError_propagatesException() {
+        File(tempDir, "values").mkdirs()
+        File(tempDir, "values/strings.xml").writeText("<resources></resources>")
+        fake.shouldFail = true
+
+        shouldThrow<Exception> {
+            TaskUtils.push(config(), fake)
+        }
+    }
 }
