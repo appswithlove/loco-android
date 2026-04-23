@@ -70,7 +70,7 @@ dependencies {
 
 Loco {
     config {
-        apiKey = "LBsleEFqO2zZeYaxU_d7pB8v4XBralr1"
+        apiKey = "OMSeWPoUt_G_4SuFP-md4A0tc5AS5byx"
         lang = listOf("en", "de")
         defLang = "en"
         fallbackLang = "en"

@@ -12,7 +12,16 @@ class LocoPlugin : Plugin<Project> {
         )
         val configListProvider = project.providers.provider { locoExtension.configList }
 
-        project.tasks.register(LocoTask.NAME, LocoTask::class.java) { task ->
+        project.tasks.register(LocoFetchTask.NAME, LocoFetchTask::class.java) { task ->
+            task.configList.set(configListProvider)
+        }
+
+        project.tasks.register("updateLoco", LocoFetchTask::class.java) { task ->
+            task.configList.set(configListProvider)
+            task.description = "Deprecated: use locoFetch instead."
+        }
+
+        project.tasks.register(LocoPushTask.NAME, LocoPushTask::class.java) { task ->
             task.configList.set(configListProvider)
         }
     }

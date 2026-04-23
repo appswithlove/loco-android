@@ -9,6 +9,9 @@ on:
 jobs:
     build:
         runs-on: ubuntu-latest
+        permissions:
+            checks: write
+            pull-requests: write
         steps:
         - uses: actions/checkout@v3
         - name: set up JDK 21
@@ -23,10 +26,29 @@ jobs:
         - name: Build with Gradle
           run: ./gradlew build
 
+        - name: Run integration tests
+          run: ./gradlew :lib:integrationTest
+
+        - name: Publish test results
+          if: always()
+          uses: EnricoMi/publish-unit-test-result-action@v2
+          with:
+              files: lib/build/test-results/**/*.xml
+
+        - name: Upload test results
+          if: always()
+          uses: actions/upload-artifact@v4
+          with:
+              name: test-results
+              path: |
+                  lib/build/reports/tests/test/
+                  lib/build/reports/tests/integrationTest/
+
         - name: Validate Maven Central publishing setup
           run: ./gradlew :lib:publishToMavenLocal --dry-run
 
         - name: Validate Gradle Plugin Portal publishing setup
+          continue-on-error: ${{ github.base_ref != 'production' && github.ref_name != 'production' }}
           run: ./gradlew :lib:publishPlugins --validate-only
           env:
             GRADLE_PUBLISH_KEY: ${{ secrets.GRADLE_PUBLISH_KEY }}
