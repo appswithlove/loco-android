@@ -93,7 +93,7 @@ In order to use the plugin follow those steps:
 ```kotlin
 // Kotlin DSL
 plugins {
-  id("com.appswithlove.loco") version "1.1.0" apply false
+  id("com.appswithlove.loco") version "1.2.0" apply false
 }
 ```
 
@@ -108,7 +108,7 @@ buildscript {
 
     dependencies {
         //…
-        classpath 'com.appswithlove.loco:loco:1.1.0'
+        classpath 'com.appswithlove.loco:loco:1.2.0'
     }
 }
 ```
@@ -158,6 +158,17 @@ Loco {
     }
 }
 ```
+
+### API key sources
+
+The plugin resolves your `apiKey` from the following sources in order (first match wins):
+
+1. **DSL** — `apiKey = "..."` in your `build.gradle(.kts)` (as shown above)
+2. **Gradle property** — `locoApiKey` via `-PlocoApiKey=…` on the command line, `gradle.properties`, or `~/.gradle/gradle.properties`
+3. **`local.properties`** — add `locoApiKey=YOUR_KEY` to the file at your project root (add this file to `.gitignore`)
+4. **Environment variable** — `LOCO_API_KEY`
+
+If none of the sources provide a key, the task fails with an error listing all options.
 
 4.Done!
 
@@ -263,7 +274,7 @@ buildscript {
         // ...
     }
     dependencies {
-        classpath 'com.appswithlove.loco:loco:1.1.0'
+        classpath 'com.appswithlove.loco:loco:1.2.0'
         // ...
     }
 }

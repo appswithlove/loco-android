@@ -14,6 +14,10 @@ object TaskUtils {
         locoConfig: LocoConfig,
         httpClient: LocoHttpClient = DefaultLocoHttpClient(),
     ) {
+        if (locoConfig.apiKey.isNullOrBlank()) throw GradleException(
+            "apiKey is missing. Provide it via the DSL, the locoApiKey Gradle property, " +
+                "local.properties (locoApiKey=…), or the LOCO_API_KEY environment variable."
+        )
         val languages: List<String> = locoConfig.lang?.takeIf { it.isNotEmpty() } ?: run {
             println("Languages are not specified in Loco config. Fetching all languages from the project.")
             fetchAllLanguages(httpClient, locoConfig.apiKey).ifEmpty { emptyList() }
@@ -82,7 +86,11 @@ object TaskUtils {
                 throw GradleException("Error fetching languages: ${e.message}")
             }
         } else {
-            throw GradleException("Can't fetch languages. API key is missing in Loco config.")
+            throw GradleException(
+                "Can't fetch languages. apiKey is missing. " +
+                    "Provide it via the DSL, the locoApiKey Gradle property, " +
+                    "local.properties (locoApiKey=…), or the LOCO_API_KEY environment variable."
+            )
         }
     }
 
@@ -90,7 +98,10 @@ object TaskUtils {
         locoConfig: LocoConfig,
         httpClient: LocoHttpClient = DefaultLocoHttpClient(),
     ) {
-        val apiKey = locoConfig.apiKey ?: throw GradleException("apiKey is missing in Loco config.")
+        val apiKey = locoConfig.apiKey ?: throw GradleException(
+            "apiKey is missing. Provide it via the DSL, the locoApiKey Gradle property, " +
+                "local.properties (locoApiKey=…), or the LOCO_API_KEY environment variable."
+        )
         val resDir = locoConfig.resDir ?: throw GradleException("resDir is missing in Loco config.")
 
         val locales: List<String> = locoConfig.lang?.takeIf { it.isNotEmpty() } ?: run {
