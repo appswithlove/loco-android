@@ -24,5 +24,13 @@ class LocoPlugin : Plugin<Project> {
         project.tasks.register(LocoPushTask.NAME, LocoPushTask::class.java) { task ->
             task.configList.set(configListProvider)
         }
+
+        project.afterEvaluate {
+            locoExtension.configList.forEach { config ->
+                if (config.apiKey.isNullOrBlank()) {
+                    config.apiKey = resolveApiKey(project)
+                }
+            }
+        }
     }
 }

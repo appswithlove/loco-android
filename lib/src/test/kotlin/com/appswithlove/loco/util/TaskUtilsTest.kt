@@ -288,4 +288,14 @@ class TaskUtilsTest {
             TaskUtils.push(config(), fake)
         }
     }
+
+    @Test
+    fun generate_withNullApiKey_throwsGradleExceptionListingSources() {
+        val exception = shouldThrow<GradleException> {
+            TaskUtils.generate(config { apiKey = null }, fake)
+        }
+        exception.message shouldContain "locoApiKey"
+        exception.message shouldContain "LOCO_API_KEY"
+        exception.message shouldContain "local.properties"
+    }
 }
