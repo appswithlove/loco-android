@@ -23,6 +23,8 @@ object TaskUtils {
             fetchAllLanguages(httpClient, locoConfig.apiKey).ifEmpty { emptyList() }
         }
 
+        val defaultLangEntry = findDefaultLangEntry(languages, locoConfig.defLang)
+
         for (langEntry in languages) {
             var lang = langEntry
             var text = httpClient.fetchTranslation(locoConfig, lang)
@@ -60,7 +62,9 @@ object TaskUtils {
                 text = text.replaceFirst(wrongXmlString, expectedXmlString)
             }
 
-            if (lang == locoConfig.defLang) {
+            val isDefaultLang = langEntry == defaultLangEntry
+
+            if (isDefaultLang) {
                 if (locoConfig.ignoreMissingTranslationWarnings) {
                     text = text.replaceFirst(
                         "<resources",
@@ -70,7 +74,7 @@ object TaskUtils {
                 saveFile(locoConfig, text)
             }
 
-            if (lang != locoConfig.defLang || locoConfig.saveDefLangDuplicate) {
+            if (!isDefaultLang || locoConfig.saveDefLangDuplicate) {
                 saveFile(locoConfig, text, appendix)
             }
         }
@@ -111,6 +115,7 @@ object TaskUtils {
             fetchAllLanguages(httpClient, apiKey)
         }
 
+        val defaultLangEntry = findDefaultLangEntry(locales, locoConfig.defLang)
         val json = Json { ignoreUnknownKeys = true }
 
         for (langEntry in locales) {
@@ -119,7 +124,7 @@ object TaskUtils {
             } else {
                 langEntry
             }
-            val folderSuffix = if (langEntry == locoConfig.defLang) "" else "-$androidLang"
+            val folderSuffix = if (langEntry == defaultLangEntry) "" else "-$androidLang"
             val file = File("$resDir/values$folderSuffix/${locoConfig.fileName}.xml")
 
             if (!file.exists()) {
@@ -147,6 +152,18 @@ object TaskUtils {
             println(
                 "[$langEntry] ${result.message} (translated: ${progress?.translated ?: 0}/$total)"
             )
+        }
+    }
+
+    private fun findDefaultLangEntry(languages: List<String>, defLang: String?): String? {
+        if (defLang == null) return null
+        return languages.firstOrNull { entry ->
+            val converted = if (entry.contains("-")) {
+                entry.replace("-", "-r")
+            } else {
+                entry
+            }
+            entry == defLang || converted == defLang || entry.startsWith("$defLang-")
         }
     }
 
