@@ -14,10 +14,16 @@ object TaskUtils {
         locoConfig: LocoConfig,
         httpClient: LocoHttpClient = DefaultLocoHttpClient(),
     ) {
+        if (locoConfig.apiKey.isNullOrBlank()) throw GradleException(
+            "apiKey is missing. Provide it via the DSL, the locoApiKey Gradle property, " +
+                "local.properties (locoApiKey=…), or the LOCO_API_KEY environment variable."
+        )
         val languages: List<String> = locoConfig.lang?.takeIf { it.isNotEmpty() } ?: run {
             println("Languages are not specified in Loco config. Fetching all languages from the project.")
             fetchAllLanguages(httpClient, locoConfig.apiKey).ifEmpty { emptyList() }
         }
+
+        val defaultLangEntry = findDefaultLangEntry(languages, locoConfig.defLang)
 
         for (langEntry in languages) {
             var lang = langEntry
@@ -56,7 +62,9 @@ object TaskUtils {
                 text = text.replaceFirst(wrongXmlString, expectedXmlString)
             }
 
-            if (lang == locoConfig.defLang) {
+            val isDefaultLang = langEntry == defaultLangEntry
+
+            if (isDefaultLang) {
                 if (locoConfig.ignoreMissingTranslationWarnings) {
                     text = text.replaceFirst(
                         "<resources",
@@ -66,7 +74,7 @@ object TaskUtils {
                 saveFile(locoConfig, text)
             }
 
-            if (lang != locoConfig.defLang || locoConfig.saveDefLangDuplicate) {
+            if (!isDefaultLang || locoConfig.saveDefLangDuplicate) {
                 saveFile(locoConfig, text, appendix)
             }
         }
@@ -82,7 +90,11 @@ object TaskUtils {
                 throw GradleException("Error fetching languages: ${e.message}")
             }
         } else {
-            throw GradleException("Can't fetch languages. API key is missing in Loco config.")
+            throw GradleException(
+                "Can't fetch languages. apiKey is missing. " +
+                    "Provide it via the DSL, the locoApiKey Gradle property, " +
+                    "local.properties (locoApiKey=…), or the LOCO_API_KEY environment variable."
+            )
         }
     }
 
@@ -90,7 +102,10 @@ object TaskUtils {
         locoConfig: LocoConfig,
         httpClient: LocoHttpClient = DefaultLocoHttpClient(),
     ) {
-        val apiKey = locoConfig.apiKey ?: throw GradleException("apiKey is missing in Loco config.")
+        val apiKey = locoConfig.apiKey ?: throw GradleException(
+            "apiKey is missing. Provide it via the DSL, the locoApiKey Gradle property, " +
+                "local.properties (locoApiKey=…), or the LOCO_API_KEY environment variable."
+        )
         val resDir = locoConfig.resDir ?: throw GradleException("resDir is missing in Loco config.")
 
         val locales: List<String> = locoConfig.lang?.takeIf { it.isNotEmpty() } ?: run {
@@ -100,6 +115,7 @@ object TaskUtils {
             fetchAllLanguages(httpClient, apiKey)
         }
 
+        val defaultLangEntry = findDefaultLangEntry(locales, locoConfig.defLang)
         val json = Json { ignoreUnknownKeys = true }
 
         for (langEntry in locales) {
@@ -108,7 +124,7 @@ object TaskUtils {
             } else {
                 langEntry
             }
-            val folderSuffix = if (langEntry == locoConfig.defLang) "" else "-$androidLang"
+            val folderSuffix = if (langEntry == defaultLangEntry) "" else "-$androidLang"
             val file = File("$resDir/values$folderSuffix/${locoConfig.fileName}.xml")
 
             if (!file.exists()) {
@@ -136,6 +152,18 @@ object TaskUtils {
             println(
                 "[$langEntry] ${result.message} (translated: ${progress?.translated ?: 0}/$total)"
             )
+        }
+    }
+
+    private fun findDefaultLangEntry(languages: List<String>, defLang: String?): String? {
+        if (defLang == null) return null
+        return languages.firstOrNull { entry ->
+            val converted = if (entry.contains("-")) {
+                entry.replace("-", "-r")
+            } else {
+                entry
+            }
+            entry == defLang || converted == defLang || entry.startsWith("$defLang-")
         }
     }
 

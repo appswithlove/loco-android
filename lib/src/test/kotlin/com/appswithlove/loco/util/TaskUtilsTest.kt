@@ -172,12 +172,16 @@ class TaskUtilsTest {
 
         TaskUtils.generate(config { ignoreMissingTranslationWarnings = true }, fake)
 
-        File(tempDir, "values/strings.xml").readText() shouldContain "tools:ignore=\"MissingTranslation\""
+        File(
+            tempDir,
+            "values/strings.xml"
+        ).readText() shouldContain "tools:ignore=\"MissingTranslation\""
     }
 
     @Test
     fun generate_withReplaceMap_replacesTextInOutput() {
-        fake.translationResponses["en"] = "<resources><string name=\"a\">Hello World</string></resources>"
+        fake.translationResponses["en"] =
+            "<resources><string name=\"a\">Hello World</string></resources>"
 
         TaskUtils.generate(config { replace = mapOf("World" to "Earth") }, fake)
 
@@ -200,7 +204,10 @@ class TaskUtilsTest {
     @Test
     fun push_withValidConfig_pushesXmlForEachLocale() {
         File(tempDir, "values").mkdirs()
-        File(tempDir, "values/strings.xml").writeText("<resources><string name=\"hello\">Hello</string></resources>")
+        File(
+            tempDir,
+            "values/strings.xml"
+        ).writeText("<resources><string name=\"hello\">Hello</string></resources>")
 
         TaskUtils.push(config(), fake)
 
@@ -287,5 +294,102 @@ class TaskUtilsTest {
         shouldThrow<Exception> {
             TaskUtils.push(config(), fake)
         }
+    }
+
+    @Test
+    fun generate_withCountrySuffixLangMatchingDefLang_savesFileInDefaultDirectory() {
+        fake.translationResponses["en-CA"] = "<resources></resources>"
+        fake.translationResponses["fr-CA"] = "<resources></resources>"
+
+        TaskUtils.generate(
+            locoConfig = config {
+                defLang = "en"
+                lang = listOf("en-CA", "fr-CA")
+            },
+            httpClient = fake,
+        )
+
+        File(tempDir, "values/strings.xml").exists() shouldBe true
+        File(tempDir, "values-en-rCA/strings.xml").exists() shouldBe false
+        File(tempDir, "values-fr-rCA/strings.xml").exists() shouldBe true
+    }
+
+    @Test
+    fun generate_withCountrySuffixLangAndSaveDefLangDuplicate_savesFilesInBothDirectories() {
+        fake.translationResponses["en-CA"] = "<resources></resources>"
+
+        TaskUtils.generate(
+            locoConfig = config {
+                defLang = "en"
+                lang = listOf("en-CA")
+                saveDefLangDuplicate = true
+            },
+            httpClient = fake,
+        )
+
+        File(tempDir, "values/strings.xml").exists() shouldBe true
+        File(tempDir, "values-en-rCA/strings.xml").exists() shouldBe true
+    }
+
+    @Test
+    fun generate_withMultipleSameBaseLang_onlyFirstSavesToDefaultDirectory() {
+        fake.translationResponses["en-CA"] =
+            "<resources><string name=\"a\">CA</string></resources>"
+        fake.translationResponses["en-US"] =
+            "<resources><string name=\"a\">US</string></resources>"
+
+        TaskUtils.generate(
+            locoConfig = config {
+                defLang = "en"
+                lang = listOf("en-CA", "en-US")
+            },
+            httpClient = fake,
+        )
+
+        File(tempDir, "values/strings.xml").exists() shouldBe true
+        File(tempDir, "values/strings.xml").readText() shouldContain "CA"
+        File(tempDir, "values-en-rUS/strings.xml").exists() shouldBe true
+    }
+
+    @Test
+    fun generate_withAndroidStyleDefLangWorkaround_stillSavesToDefaultDirectory() {
+        fake.translationResponses["en-CA"] = "<resources></resources>"
+
+        // Existing workaround: users set defLang to Android-style "en-rCA"
+        TaskUtils.generate(
+            locoConfig = config {
+                defLang = "en-rCA"
+                lang = listOf("en-CA")
+            },
+            httpClient = fake,
+        )
+
+        File(tempDir, "values/strings.xml").exists() shouldBe true
+    }
+
+    @Test
+    fun push_withCountrySuffixLangMatchingDefLang_readsFromDefaultDirectory() {
+        File(tempDir, "values").mkdirs()
+        File(tempDir, "values/strings.xml").writeText("<resources></resources>")
+
+        TaskUtils.push(
+            locoConfig = config {
+                defLang = "en"
+                lang = listOf("en-CA")
+            },
+            httpClient = fake,
+        )
+
+        fake.capturedPushLocales shouldBe listOf("en-CA")
+    }
+
+    @Test
+    fun generate_withNullApiKey_throwsGradleExceptionListingSources() {
+        val exception = shouldThrow<GradleException> {
+            TaskUtils.generate(config { apiKey = null }, fake)
+        }
+        exception.message shouldContain "locoApiKey"
+        exception.message shouldContain "LOCO_API_KEY"
+        exception.message shouldContain "local.properties"
     }
 }
